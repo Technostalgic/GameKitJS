@@ -86,6 +86,19 @@ class rect {
 		this.size.y = value - this.position.y;
 	}
 
+	get width(){
+		return this.size.x;
+	}
+	set width(value){
+		this.size.x = value;
+	}
+	get height(){
+		return this.size.y;
+	}
+	set height(value){
+		this.size.x = value;
+	}
+
 	get center(){
 		return this.position.Plus(this.size.Scaled(0.5));
 	}
