@@ -1,4 +1,4 @@
-// a data structure that represents a 2 dimensional vector
+/** a data structure that represents a 2 dimensional vector */
 class vec2 {
 	// initializes the vector with specified x and y components
 	constructor(x = 0, y = x) {
@@ -51,7 +51,7 @@ class vec2 {
 	}
 }
 
-// a data structure that represents an axis aligned box
+/** a data structure that represents an axis aligned box */
 class rect {
 	// initializes the vector with the specified top left position and size
 	constructor(position = vec2.zero, size = vec2.Zero) {
@@ -126,5 +126,35 @@ class rect {
 
 	static FromSides(left, right, top, bottom) {
 		return new rect(new vec2(left, top), new vec2(right - left, bottom - top));
+	}
+}
+
+/** a data structure used to represent a visual color */
+class Color{
+	
+	constructor(/**@type {Number}*/r = 0, /**@type {Number}*/g = 0, /**@type {Number}*/b = 0, /**@type {Number}*/a = 1){
+
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		this.a = a;
+	}
+
+	/** returns a string representing the color in RGB format that can be used to format a canvasRenderingContext2d fill or line style */
+	ToRGB(){
+
+		return "rgb(" + 
+			Math.round(r).toString() + "," + 
+			Math.round(g).toString() + "," + 
+			Math.round(b).toString() + ")" ;
+	}
+	/** returns a string representing the color in RGBA format that can be used to format a canvasRenderingContext2d fill or line style */
+	ToRGBA(){
+		
+		return "rgba(" + 
+			Math.round(this.r).toString() + "," + 
+			Math.round(this.g).toString() + "," + 
+			Math.round(this.b).toString() + "," +
+			this.a.toString() + ")" ;
 	}
 }

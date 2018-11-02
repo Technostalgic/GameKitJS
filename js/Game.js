@@ -23,11 +23,9 @@ class Game {
 		this._lastStep = 0;
 	}
 	
+	/** attaches an @type {InputHandler} object to the game */
 	AttachInputHandler(/** @type {InputHandler} */handler){
-		
 		this.inputHandler = handler;
-		this.paintTarget.addEventListener("mousedown", this.inputHandler.OnMouseDown);
-		document.addEventListener("keydown", this.inputHandler.OnKeyDown);
 	}
 
 	/** sets the canvas that the game will be rendered onto */
@@ -40,12 +38,17 @@ class Game {
 	/** starts running the game */
 	StartRunning(){
 
+		this.inputHandler.AttachEvents(this.paintTarget);
+
 		this._lastStep = performance.now();
 		this._isRunning = true;
+		
 		this.step();
 	}
 	/** stops running the game */
 	StopRunning(){
+
+		this.inputHandler.DetachEvents(this.paintTarget);
 		this._isRunning = false;
 	}
 
@@ -75,9 +78,9 @@ class Game {
 	}
 	
 	/** clears the canvas to a solid color */
-	ClearCanvas(/** @type {string}*/color = "#FFF"){
+	ClearCanvas(/** @type {Color}*/color = new Color(255, 255, 255)){
 		
-		this.paintContext.fillStyle = color;
+		this.paintContext.fillStyle = color.ToRGB();
 		this.paintContext.fillRect(0, 0, this.paintTarget.width, this.paintTarget.height);
 	}
 	/** paints the renderTarget to the specified canvas */
