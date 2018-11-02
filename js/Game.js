@@ -74,9 +74,16 @@ class Game {
 		elapsedTime += dt;
 	}
 	
+	/** clears the canvas to a solid color */
+	ClearCanvas(/** @type {string}*/color = "#FFF"){
+		
+		this.paintContext.fillStyle = color;
+		this.paintContext.fillRect(0, 0, this.paintTarget.width, this.paintTarget.height);
+	}
 	/** paints the renderTarget to the specified canvas */
 	RenderToCanvas(/**@type {HTMLCanvasElement}*/canvas, /**@type {CanvasRenderingContext2D}*/ context) {
 
+		this.ClearCanvas();
 		var drawTarget = new rect(vec2.zero, this.resolution.clone);
 		context.drawImage(this.renderTarget, drawTarget.left, drawTarget.top, drawTarget.width, drawTarget.height);
 	}
