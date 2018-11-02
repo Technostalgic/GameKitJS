@@ -1,6 +1,8 @@
 class GUI{
 	constructor(){
 		
+		/** @type {Game} */
+		this.parentGame = null;
 		/** @type {Array} */
 		this._controls = [];
 		/** @type {Number} */
@@ -11,6 +13,7 @@ class GUI{
 	AddControl(/**@type {GUIControl}*/ control){
 		
 		control.ID = this._controls.length;
+		control._parentGUI = this; // TODO: Fix missuse of private accessor
 		this._controls.push(control);
 	}
 	/** removes a GUIControl from the GUI */
@@ -24,6 +27,10 @@ class GUI{
 		
 		for(var i = 0; i < this._controls.length; i++)
 			this._controls[i].ID = i;
+	}
+
+	get renderContext(){
+		return this.parentGame.renderContext;
 	}
 
 	/** @type {GUIControl} returns the GUI control that currently has focus */
@@ -92,10 +99,25 @@ class GUI{
 		}
 	}
 
+	/** virtual, called once every game step */
+	Update(/**@type {Number}*/dt) { }
+
 	/** virtual, used to render the GUI */
 	Draw(){
 
 		for(let control of this._controls)
 			control.Draw();
+	}
+
+	static GenerateSampleGUI(){
+		var gui = new GUI();
+
+		var button = new GUIControl_Button();
+		button.bounds = new rect(new vec2(), new vec2(100));
+		button.bounds.center = new vec2(100);
+
+		gui.AddControl(button);
+
+		return gui;
 	}
 }

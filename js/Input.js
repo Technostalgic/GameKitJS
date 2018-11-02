@@ -1,6 +1,10 @@
 class InputHandler{
 	
-	constructor(){ }
+	constructor(){ 
+
+		/**@type {Game}*/
+		this.parentGame = null;
+	}
 
 	/** attaches the the input events to the callback functions with respect to the specified canvas element */
 	AttachEvents(/**@type {HTMLCanvasElement}*/canvas){
@@ -26,8 +30,12 @@ class InputHandler{
 
 	/** called when the mouse is pressed */
 	OnMouseDown(e){
-		LoadDataFile();
+		
+		if(this.parentGame.currentGUI)
+			this.parentGame.currentGUI.OnCursorDown(new vec2(e.offsetX, e.offsetY));
 	}
 	/** called when the mouse is released */
-	OnMouseUp(e){ }
+	OnMouseUp(e){ 
+		
+	}
 }

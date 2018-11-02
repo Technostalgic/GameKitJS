@@ -13,7 +13,7 @@ class vec2 {
 	}
 	// subtracts another vector from itself and returns the result
 	Minus(vec) {
-		return this.Plus(vec.Negated())
+		return this.Plus(vec.negated);
 	}
 	// scales the vector by the specified factor and returns the result
 	Scaled(factor) {
@@ -132,6 +132,26 @@ class rect {
 			this.top <= vec.y &&
 			this.bottom >= vec.y
 		);
+	}
+
+	DrawFill( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color()){
+
+		ctx.fillStyle = color.ToRGBA();
+		ctx.fillRect(this.left, this.top, this.width, this.height);
+	}
+	DrawOutline( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color(), width = 1){
+		
+		ctx.strokeStyle = color.ToRGBA();
+		ctx.lineWidth = width;
+		
+		ctx.beginPath();
+		ctx.moveTo(this.left, this.top);
+		ctx.lineTo(this.left, this.bottom);
+		ctx.lineTo(this.right, this.bottom);
+		ctx.lineTo(this.right, this.top);
+		ctx.closePath();
+
+		ctx.stroke();
 	}
 
 	static FromSides(left, right, top, bottom) {

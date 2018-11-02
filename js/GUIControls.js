@@ -15,6 +15,9 @@ class GUIControl {
 	get hasFocus(){
 		return this._parentGUI.focusControl.ID == this.ID;
 	}
+	get renderContext(){
+		return this._parentGUI.renderContext;
+	}
 
 	/** virtual, called when control gains focus */
 	OnGainFocus() { }
@@ -25,13 +28,19 @@ class GUIControl {
 	Select() { }
 
 	/** virtual, called when the control is rendered */
-	Draw() { }
+	Draw() {
 
+		var col = new Color();
+		if(this.hasFocus)
+			col = new Color(0, 150, 50);
+		
+		bounds.drawOutline(this.renderContext, col);
+	}
 }
 
 /**  */
-class GUIControl_Button{
+class GUIControl_Button extends GUIControl{
 	constructor(){
-
+		super();
 	}
 }

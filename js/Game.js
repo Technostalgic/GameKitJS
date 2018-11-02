@@ -17,10 +17,12 @@ class Game {
 		/** @type {CanvasRenderingContext2D} */
 		this.canvasTargetContext = null;
 
+		/** @type {GUI} */
+		this.currentGUI = null;
 		/** @type {Number} */
-		this.elapsedTime;
+		this.elapsedTime = 0;
 		/** @type {Number} */
-		this.trueElapsedTime;
+		this.trueElapsedTime = 0;
 		/** @type {Number} */
 		this.timescale = 1;
 		/** @type {InputHandler} */
@@ -31,11 +33,18 @@ class Game {
 		this._lastStep = 0;
 	}
 	
+	/** sets the current GUI of the game */
+	SetCurrentGUI(/**@type {GUI}*/gui){
+
+		gui.parentGame = this;
+		this.currentGUI = gui;
+	}
 	/** attaches an @type {InputHandler} object to the game */
 	SetInputHandler(/** @type {InputHandler} */handler){
+
+		handler.parentGame = this;
 		this.inputHandler = handler;
 	}
-
 	/** sets the canvas that the game will be rendered onto */
 	SetPaintingTarget(canvas) {
 		
@@ -65,7 +74,7 @@ class Game {
 
 		// calculate the delta time and update the game accordingly
 		var now = performance.now();
-		var dt = now - this._lastStep();
+		var dt = now - this._lastStep;
 		this._lastStep = now;
 		this.Update(dt);
 
@@ -80,9 +89,13 @@ class Game {
 	Update(/**@type {Number}*/ dt) {
 
 		// increment the elapsed time counters
-		trueElapsedTime += dt;
+		this.trueElapsedTime += dt;
 		dt *= this.timescale;
-		elapsedTime += dt;
+		this.elapsedTime += dt;
+
+		// update the current GUI
+		if(this.currentGUI)
+			this.currentGUI.Update(dt);
 	}
 	
 	/** clears the canvas to a solid color */
@@ -95,6 +108,10 @@ class Game {
 	RenderToCanvas(/**@type {HTMLCanvasElement}*/canvas, /**@type {CanvasRenderingContext2D}*/ context) {
 
 		this.ClearCanvas();
+
+		if(this.currentGUI)
+			this.currentGUI.Draw();
+
 		var drawTarget = new rect(vec2.zero, this.resolution.clone);
 		context.drawImage(this.renderTarget, drawTarget.left, drawTarget.top, drawTarget.width, drawTarget.height);
 	}
