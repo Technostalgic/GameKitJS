@@ -144,9 +144,9 @@ class Color{
 	ToRGB(){
 
 		return "rgb(" + 
-			Math.round(r).toString() + "," + 
-			Math.round(g).toString() + "," + 
-			Math.round(b).toString() + ")" ;
+			Math.round(this.r).toString() + "," + 
+			Math.round(this.g).toString() + "," + 
+			Math.round(this.b).toString() + ")" ;
 	}
 	/** returns a string representing the color in RGBA format that can be used to format a canvasRenderingContext2d fill or line style */
 	ToRGBA(){

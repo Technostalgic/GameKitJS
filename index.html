@@ -9,11 +9,12 @@
 	<canvas id="gameCanvas" width="600" height="600"></canvas>
 	<script>
 
+		// get a reference to the game canvas
 		var  gameCanvas = document.getElementById("gameCanvas"); 
 		var game = new Game();
 
 		game.SetPaintingTarget(gameCanvas);
-		game.AttachInputHandler(new InputHandler());
+		game.SetInputHandler(new InputHandler());
 		game.ClearCanvas();
 	</script>
 </body>

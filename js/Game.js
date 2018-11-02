@@ -12,33 +12,41 @@ class Game {
 		this.renderContext = this.renderTarget.getContext("2d");
 
 		// the webpage canvas to render the game to
-		this.paintTarget = null;
-		this.paintContext = null;
+		/** @type {HTMLCanvasElement} */
+		this.canvasTarget = null;
+		/** @type {CanvasRenderingContext2D} */
+		this.canvasTargetContext = null;
 
+		/** @type {Number} */
 		this.elapsedTime;
+		/** @type {Number} */
 		this.trueElapsedTime;
+		/** @type {Number} */
 		this.timescale = 1;
+		/** @type {InputHandler} */
 		this.inputHandler = null;
+		/** @type {Boolean} */
 		this._isRunning = false;
+		/** @type {Number} */
 		this._lastStep = 0;
 	}
 	
 	/** attaches an @type {InputHandler} object to the game */
-	AttachInputHandler(/** @type {InputHandler} */handler){
+	SetInputHandler(/** @type {InputHandler} */handler){
 		this.inputHandler = handler;
 	}
 
 	/** sets the canvas that the game will be rendered onto */
 	SetPaintingTarget(canvas) {
 		
-		this.paintTarget = canvas;
-		this.paintContext = this.paintTarget.getContext("2d");
+		this.canvasTarget = canvas;
+		this.canvasTargetContext = this.canvasTarget.getContext("2d");
 	}
 
 	/** starts running the game */
 	StartRunning(){
 
-		this.inputHandler.AttachEvents(this.paintTarget);
+		this.inputHandler.AttachEvents(this.canvasTarget);
 
 		this._lastStep = performance.now();
 		this._isRunning = true;
@@ -48,7 +56,7 @@ class Game {
 	/** stops running the game */
 	StopRunning(){
 
-		this.inputHandler.DetachEvents(this.paintTarget);
+		this.inputHandler.DetachEvents(this.canvasTarget);
 		this._isRunning = false;
 	}
 
@@ -62,7 +70,7 @@ class Game {
 		this.Update(dt);
 
 		// renders the game to the specified painting target
-		this.RenderToCanvas(this.paintTarget, this.paintContext);
+		this.RenderToCanvas(this.canvasTarget, this.canvasTargetContext);
 
 		// sets up the next step to be called if the game is running
 		if (this._isRunning)
@@ -80,8 +88,8 @@ class Game {
 	/** clears the canvas to a solid color */
 	ClearCanvas(/** @type {Color}*/color = new Color(255, 255, 255)){
 		
-		this.paintContext.fillStyle = color.ToRGB();
-		this.paintContext.fillRect(0, 0, this.paintTarget.width, this.paintTarget.height);
+		this.canvasTargetContext.fillStyle = color.ToRGB();
+		this.canvasTargetContext.fillRect(0, 0, this.canvasTarget.width, this.canvasTarget.height);
 	}
 	/** paints the renderTarget to the specified canvas */
 	RenderToCanvas(/**@type {HTMLCanvasElement}*/canvas, /**@type {CanvasRenderingContext2D}*/ context) {
