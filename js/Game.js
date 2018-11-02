@@ -3,7 +3,7 @@ class Game {
 	constructor() {
 
 		// the target resolution of the application
-		this.resolution = new vec2(256, 256);
+		this.resolution = new vec2(600, 600);
 
 		// the canvas that everything will be rendered onto
 		this.renderTarget = document.createElement("canvas");
@@ -18,10 +18,18 @@ class Game {
 		this.elapsedTime;
 		this.trueElapsedTime;
 		this.timescale = 1;
+		this.inputHandler = null;
 		this._isRunning = false;
 		this._lastStep = 0;
 	}
 	
+	AttachInputHandler(/** @type {InputHandler} */handler){
+		
+		this.inputHandler = handler;
+		this.paintTarget.addEventListener("mousedown", this.inputHandler.OnMouseDown);
+		document.addEventListener("keydown", this.inputHandler.OnKeyDown);
+	}
+
 	/** sets the canvas that the game will be rendered onto */
 	SetPaintingTarget(canvas) {
 		
