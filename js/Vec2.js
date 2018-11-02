@@ -119,8 +119,18 @@ class rect {
 		return (
 			this.left > rec.right &&
 			this.right < rec.left &&
-			this.top > rec.bottom &&
-			this.bottom < rec.top
+			this.top < rec.bottom &&
+			this.bottom > rec.top
+		);
+	}
+	// returns true if the specified point lies inside the rect (inclusive)
+	ContainsPoint(vec){
+
+		return (
+			this.right >= vec.x &&
+			this.left <= vec.x &&
+			this.top <= vec.y &&
+			this.bottom >= vec.y
 		);
 	}
 
