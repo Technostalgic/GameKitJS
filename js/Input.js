@@ -9,18 +9,24 @@ class InputHandler{
 	/** attaches the the input events to the callback functions with respect to the specified canvas element */
 	AttachEvents(/**@type {HTMLCanvasElement}*/canvas){
 
-		canvas.addEventListener("mousedown", this.OnMouseDown);
-		canvas.addEventListener("mouseup", this.OnMouseUp);
-		document.addEventListener("keydown", this.OnKeyDown);
-		document.addEventListener("keyup", this.OnKeyDown.OnKeyUp);
+		var ths = this;
+
+		canvas.addEventListener("mousedown", function(e){ ths.OnMouseDown(e); });
+		canvas.addEventListener("mouseup", function(e){ ths.OnMouseUp(e); });
+		canvas.addEventListener("mousemove", function(e){ ths.OnMouseMove(e); });
+		document.addEventListener("keydown", function(e){ ths.OnKeyDown(e); });
+		document.addEventListener("keyup", function(e){ ths.OnKeyDown.OnKeyUp(e); });
 	}
 	/** detaches the input events from the callback functions */
 	DetachEvents(/**@type {HTMLCanvasElement}*/canvas){
 
-		canvas.removeEventListener("mousedown", this.OnMouseDown);
-		canvas.removeEventListener("mouseup", this.OnMouseUp);
-		document.addEventListener("keydown", this.OnKeyDown);
-		document.addEventListener("keyup", this.OnKeyUp);
+		var ths = this;
+
+		canvas.removeEventListener("mousedown", function(){ this.OnMouseDown(); });
+		canvas.removeEventListener("mouseup", function(){ this.OnMouseUp(); });
+		canvas.removeEventListener("mousemove", function(){ this.OnMouseMove(); });
+		document.addEventListener("keydown", function(){ this.OnKeyDown(); });
+		document.addEventListener("keyup", function(){ this.OnKeyUp(); });
 	}
 
 	/** called when a keyboard key is pressed */
@@ -37,5 +43,11 @@ class InputHandler{
 	/** called when the mouse is released */
 	OnMouseUp(e){ 
 		
+	}
+	/** called when the mouse is moved */
+	OnMouseMove(e){
+		
+		if(this.parentGame.currentGUI)
+			this.parentGame.currentGUI.OnCursorMove(new vec2(e.offsetX, e.offsetY));
 	}
 }

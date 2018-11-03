@@ -13,6 +13,10 @@ class GUIControl {
 	}
 
 	get hasFocus(){
+
+		if(this._parentGUI.focusControl == null)
+			return false;
+		
 		return this._parentGUI.focusControl.ID == this.ID;
 	}
 	get renderContext(){
@@ -34,7 +38,7 @@ class GUIControl {
 		if(this.hasFocus)
 			col = new Color(0, 150, 50);
 		
-		bounds.drawOutline(this.renderContext, col);
+		this.bounds.DrawOutline(this.renderContext, col);
 	}
 }
 

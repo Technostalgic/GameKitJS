@@ -82,8 +82,9 @@ class Game {
 		this.RenderToCanvas(this.canvasTarget, this.canvasTargetContext);
 
 		// sets up the next step to be called if the game is running
+		var ths = this;
 		if (this._isRunning)
-			requestAnimationFrame(this.step);
+			requestAnimationFrame(function(){ ths.step(); });
 	}
 	/** updates the game world by the specified delta time in seconds */
 	Update(/**@type {Number}*/ dt) {

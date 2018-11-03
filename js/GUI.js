@@ -46,7 +46,7 @@ class GUI{
 	set focusControl(value){
 
 		if(value instanceof GUIControl)
-			this._focusControl = GUIControl.ID;
+			this._focusControl = value.ID;
 		else if(value instanceof Number)
 			this._focusControl = value;
 
@@ -60,17 +60,18 @@ class GUI{
 		var r = [];
 
 		for(let control of this._controls)
-			if(control.bounds.ContainsPoint(r.push(control)));
+			if(control.bounds.ContainsPoint(vec))
+				r.push(control);
 
 		return r;
 	}
 	/** returns a selectable control who's bounds collide with the specified position */
 	GetSelectableControlAt(/**@type {vec2}*/vec){
 
-		var colControls = this.GetControlsAt(pos);
+		var colControls = this.GetControlsAt(vec);
 		for(let control of colControls){
 
-			if(!control.CanHaveFocus)
+			if(!control.canHaveFocus)
 				continue;
 				
 			return control;
@@ -79,14 +80,14 @@ class GUI{
 		return null;
 	}
 	/** virtual, called when the simulated mouse cursor is moved */
-	OnCursorMove(/**@type {vec2}*/pos){ 
+	OnCursorMove(/**@type {vec2}*/pos){
 
 		var control = this.GetSelectableControlAt(pos);
 		if(!!control)
-			this._focusControl = control;
+			this.focusControl = control;
 	}
 	/** virtual, called when the simulated cursor is pressed */
-	OnCursorDown(/**@type {vec2}*/pos){ 
+	OnCursorDown(/**@type {vec2}*/pos){
 		
 		var control = this.GetSelectableControlAt(pos);
 		if(!!control && !!this.focusControl){
