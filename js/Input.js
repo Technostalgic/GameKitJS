@@ -4,6 +4,8 @@ class InputHandler{
 
 		/**@type {Game}*/
 		this.parentGame = null;
+		/**@type {Object} */
+		this.listeners = {};
 	}
 
 	/** attaches the the input events to the callback functions with respect to the specified canvas element */
@@ -11,22 +13,26 @@ class InputHandler{
 
 		var ths = this;
 
-		canvas.addEventListener("mousedown", function(e){ ths.OnMouseDown(e); });
-		canvas.addEventListener("mouseup", function(e){ ths.OnMouseUp(e); });
-		canvas.addEventListener("mousemove", function(e){ ths.OnMouseMove(e); });
-		document.addEventListener("keydown", function(e){ ths.OnKeyDown(e); });
-		document.addEventListener("keyup", function(e){ ths.OnKeyDown.OnKeyUp(e); });
+		this.listeners.mousedown = function(e){ ths.OnMouseDown(e); };
+		this.listeners.mouseup = function(e){ ths.OnMouseUp(e); };
+		this.listeners.mousemove = function(e){ ths.OnMouseMove(e); };
+		this.listeners.keydown = function(e){ ths.OnKeyDown(e); };
+		this.listeners.keyup = function(e){ ths.OnKeyDown.OnKeyUp(e); };
+
+		canvas.addEventListener("mousedown", this.listeners.mousedown);
+		canvas.addEventListener("mouseup", this.listeners.mouseup);
+		canvas.addEventListener("mousemove", this.listeners.mousemove);
+		document.addEventListener("keydown", this.listeners.keydown);
+		document.addEventListener("keyup", this.listeners.keyup);
 	}
 	/** detaches the input events from the callback functions */
 	DetachEvents(/**@type {HTMLCanvasElement}*/canvas){
 
-		var ths = this;
-
-		canvas.removeEventListener("mousedown", function(){ this.OnMouseDown(); });
-		canvas.removeEventListener("mouseup", function(){ this.OnMouseUp(); });
-		canvas.removeEventListener("mousemove", function(){ this.OnMouseMove(); });
-		document.addEventListener("keydown", function(){ this.OnKeyDown(); });
-		document.addEventListener("keyup", function(){ this.OnKeyUp(); });
+		canvas.removeEventListener("mousedown", this.listeners.mousedown);
+		canvas.removeEventListener("mouseup", this.listeners.mouseup);
+		canvas.removeEventListener("mousemove", this.listeners.mousemove);
+		document.removeEventListener("keydown", this.listeners.keydown);
+		document.removeEventListener("keyup", this.listeners.keyup);
 	}
 
 	/** called when a keyboard key is pressed */
