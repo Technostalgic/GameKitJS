@@ -73,7 +73,7 @@ class Game {
 	step() {
 
 		// calculate the delta time and update the game accordingly
-		var now = performance.now();
+		var now = performance.now() / 1000; // current time in seconds
 		var dt = now - this._lastStep;
 		this._lastStep = now;
 		this.Update(dt);

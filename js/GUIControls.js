@@ -34,11 +34,11 @@ class GUIControl {
 	/** virtual, called when the control is rendered */
 	Draw() {
 
-		var col = new Color();
+		var col = new Color(225, 225, 225);
 		if(this.hasFocus)
-			col = new Color(0, 150, 50);
+			col = new Color(185, 185, 185);
 		
-		this.bounds.DrawOutline(this.renderContext, col);
+		this.bounds.DrawFill(this.renderContext, col);
 	}
 }
 

@@ -145,12 +145,13 @@ class GUI_Menu extends GUI{
 	updateSelectionCursor(dt){
 
 		// the speed at which the cursor approches it's target
-		var coeff = 5;
-		coeff *= dt;
+		var weight = 15;
+		weight *= dt;
 
+		// weighted average = (startRect + targetRect * weight) / (1 + weight)
 		var frect = new rect();
-		frect.position = this.selectionCursorTarget.position.Plus(this.selectionCursor.position.Scaled(coeff)).Scaled(1 / (1 + coeff));
-		frect.size = this.selectionCursorTarget.size.Plus(this.selectionCursor.size.Scaled(coeff)).Scaled(1 / (1 + coeff));
+		frect.position = this.selectionCursorTarget.position.Scaled(weight).Plus(this.selectionCursor.position).Scaled(1 / (1 + weight));
+		frect.size = this.selectionCursorTarget.size.Scaled(weight).Plus(this.selectionCursor.size).Scaled(1 / (1 + weight));
 
 		this._selectionCursor = frect;
 	}

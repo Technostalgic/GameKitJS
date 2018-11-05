@@ -18,7 +18,7 @@ class InputHandler{
 		this.listeners.mouseup = function(e){ ths.OnMouseUp(e); };
 		this.listeners.mousemove = function(e){ ths.OnMouseMove(e); };
 		this.listeners.keydown = function(e){ ths.OnKeyDown(e); };
-		this.listeners.keyup = function(e){ ths.OnKeyDown.OnKeyUp(e); };
+		this.listeners.keyup = function(e){ ths.OnKeyUp(e); };
 	}
 	/** attaches the the input events to the callback functions with respect to the specified canvas element */
 	AttachEvents(/**@type {HTMLCanvasElement}*/canvas){

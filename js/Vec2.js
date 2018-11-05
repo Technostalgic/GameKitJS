@@ -1,43 +1,43 @@
 /** a data structure that represents a 2 dimensional vector */
 class vec2 {
-	// initializes the vector with specified x and y components
+	/** initializes the vector with specified x and y components */
 	constructor(x = 0, y = x) {
 
 		this.x = x;
 		this.y = y;
 	}
 
-	// adds the vector to another and returns the result
+	/**@type {vec2} adds the vector to another and returns the result */
 	Plus(vec) {
 		return new vec2(this.x + vec.x, this.y + vec.y);
 	}
-	// subtracts another vector from itself and returns the result
+	/**@type {vec2} subtracts another vector from itself and returns the result */
 	Minus(vec) {
 		return this.Plus(vec.negated);
 	}
-	// scales the vector by the specified factor and returns the result
+	/**@type {vec2} scales the vector by the specified factor and returns the result */
 	Scaled(factor) {
 		return new vec2(this.x * factor, this.y * factor);
 	}
 
-	// returns the vector fliped along both axes
+	/**@type {vec2} returns the vector fliped along both axes */
 	get negated() {
 		return this.Scaled(-1);
 	}
-	// returns a vector with the same XY ratio but it's magnitude scaled to 1
+	/**@type {vec2} returns a vector with the same XY ratio but it's magnitude scaled to 1 */
 	get normalized(){
 		return this.Scaled(1 / this.magnitude);
 	}
 
-	// returns the direction in radians that the vector is pointing in
+	/**@type {Number} returns the direction in radians that the vector is pointing in */
 	get direction() {
 		return Math.atan2(this.y, this.x);
 	}
-	// returns the distance of the vector from the origin point <0,0>
+	/**@type {Number} returns the distance of the vector from the origin point <0,0> */
 	get magnitude() {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
-	// returns a new instance of the vector with the same values
+	/**@type {vec2} returns a new instance of the vector with the same values */
 	get clone() {
 		return new vec2(this.x, this.y);
 	}
