@@ -54,44 +54,56 @@ class vec2 {
 /** a data structure that represents an axis aligned box */
 class rect {
 	// initializes the vector with the specified top left position and size
-	constructor(position = vec2.zero, size = vec2.Zero) {
+	constructor(/**@type {vec2}*/position = vec2.zero, /**@type {vec2}*/size = vec2.zero) {
+		/**@type {vec2}*/
 		this.position = position;
+		/**@type {vec2}*/
 		this.size = size;
 	}
 
+	/**@type {Number}*/
 	get left(){
 		return this.position.x;
 	}
+	/**@type {Number}*/
 	set left(value){
 		this.size.x = this.right - value;
 		this.position.x = value;
 	}
+	/**@type {Number}*/
 	get right(){
 		return this.position.x + this.size.x;
 	}
+	/**@type {Number}*/
 	set right(value){
 		this.size.x = value - this.position.x;
 	}
+	/**@type {Number}*/
 	get top(){
 		return this.position.y;
 	}
+	/**@type {Number}*/
 	set top(value){
 		this.size.y = this.bottom - value;
 		this.position.y = value;
 	}
+	/**@type {Number}*/
 	get bottom(){
 		return this.position.y + this.size.y;
 	}
+	/**@type {Number}*/
 	set bottom(value){
 		this.size.y = value - this.position.y;
 	}
 
+	/**@type {Number}*/
 	get width(){
 		return this.size.x;
 	}
 	set width(value){
 		this.size.x = value;
 	}
+	/**@type {Number}*/
 	get height(){
 		return this.size.y;
 	}
@@ -99,6 +111,7 @@ class rect {
 		this.size.x = value;
 	}
 
+	/**@type {vec2}*/
 	get center(){
 		return this.position.Plus(this.size.Scaled(0.5));
 	}
@@ -106,9 +119,11 @@ class rect {
 		this.position = value.Minus(this.size.Scaled(0.5));
 	}
 
+	/**@type {Number}*/
 	get area(){
 		return this.size.x * this.size.y;
 	}
+	/**@type {Boolean}*/
 	get isEmpty(){
 		return this.area <= 0;
 	}
@@ -154,6 +169,7 @@ class rect {
 		ctx.stroke();
 	}
 
+	/**@type {rect}*/
 	static FromSides(left, right, top, bottom) {
 		return new rect(new vec2(left, top), new vec2(right - left, bottom - top));
 	}

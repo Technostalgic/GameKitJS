@@ -1,4 +1,5 @@
 class GUI{
+	
 	constructor(){
 		
 		/** @type {Game} */
@@ -109,16 +110,70 @@ class GUI{
 		for(let control of this._controls)
 			control.Draw();
 	}
+}
 
-	static GenerateSampleGUI(){
-		var gui = new GUI();
+class GUI_Menu extends GUI{
+	
+	constructor(){
+		super();
+
+		/**@type {rect}*/
+		this._selectionCursor = null;
+	}
+
+	/** @type {rect} the rect that the selectionCursor is approaching */
+	get selectionCursorTarget(){
+
+		var r = null;
+		if(!!this.focusControl)
+			r = this.focusControl.bounds;
+		else 
+			r = new rect(new vec2(), this.parentGame.resolution.clone);
+
+		return r;
+	}
+	/** @type {rect} returns the initialized selection cursor */
+	get selectionCursor(){
+		
+		if(this._selectionCursor == null)
+			this._selectionCursor = new rect(new vec2(), this.parentGame.resolution.clone);
+
+		return this._selectionCursor;
+	}
+
+	/** updates the selection Cursor so it's closer to it's target */
+	updateSelectionCursor(dt){
+
+		// the speed at which the cursor approches it's target
+		var coeff = 5;
+		coeff *= dt;
+
+		var frect = new rect();
+		frect.position = this.selectionCursorTarget.position.Plus(this.selectionCursor.position.Scaled(coeff)).Scaled(1 / (1 + coeff));
+		frect.size = this.selectionCursorTarget.size.Plus(this.selectionCursor.size.Scaled(coeff)).Scaled(1 / (1 + coeff));
+
+		this._selectionCursor = frect;
+	}
+
+	Update(dt){
+		super.Update(dt);
+
+		this.updateSelectionCursor(dt);
+	}
+
+	Draw(){
+		super.Draw();
+		
+		this.selectionCursor.DrawOutline(this.renderContext, new Color(0, 0, 0, 0.5));
+	}
+
+	static get Menu_MainMenu(){
+		var r = new GUI_Menu();
 
 		var button = new GUIControl_Button();
-		button.bounds = new rect(new vec2(), new vec2(100));
-		button.bounds.center = new vec2(100);
-
-		gui.AddControl(button);
-
-		return gui;
+		button.bounds = new rect(new vec2(150), new vec2(100));
+		r.AddControl(button);
+		
+		return r;
 	}
 }

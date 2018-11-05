@@ -104,6 +104,9 @@ class Game {
 		
 		this.canvasTargetContext.fillStyle = color.ToRGB();
 		this.canvasTargetContext.fillRect(0, 0, this.canvasTarget.width, this.canvasTarget.height);
+		
+		this.renderContext.fillStyle = color.ToRGB();
+		this.renderContext.fillRect(0, 0, this.renderTarget.width, this.renderTarget.height);
 	}
 	/** paints the renderTarget to the specified canvas */
 	RenderToCanvas(/**@type {HTMLCanvasElement}*/canvas, /**@type {CanvasRenderingContext2D}*/ context) {
