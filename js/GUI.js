@@ -1,9 +1,9 @@
 class GUI{
 	
-	constructor(){
+	constructor(parentGame = null){
 		
 		/** @type {Game} */
-		this.parentGame = null;
+		this.parentGame = parentGame;
 		/** @type {Array} */
 		this._controls = [];
 		/** @type {Number} */
@@ -114,8 +114,8 @@ class GUI{
 
 class GUI_Menu extends GUI{
 	
-	constructor(){
-		super();
+	constructor(parentGame = null){
+		super(parentGame);
 
 		/**@type {rect}*/
 		this._selectionCursor = null;
@@ -169,10 +169,9 @@ class GUI_Menu extends GUI{
 	}
 
 	static get Menu_MainMenu(){
-		var r = new GUI_Menu();
+		var r = new GUI_Menu(game);
 
-		var button = new GUIControl_Button();
-		button.bounds = new rect(new vec2(150), new vec2(100));
+		var button = GUIControl_Button.FromLabel(r, "Button").AtPosition(new vec2(150));
 		r.AddControl(button);
 		
 		return r;

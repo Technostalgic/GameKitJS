@@ -164,6 +164,13 @@ class rect {
 		);
 	}
 
+	/** expands the size of the rect by the specified amount of pixels per side without changing the rect's center */
+	AddPadding(horizontal, vertical = horizontal){
+
+		var ocent = this.center;
+		this.size = this.size.Plus(new vec2(horizontal, vertical));
+		this.center = ocent;
+	}
 	/**@type {Number} returns a number that represents how different this rect is from another*/
 	GetDifference(/**@type {rect}*/rec){
 		return this.size.Minus(rec.size).magnitude + this.position.Minus(rec.position).magnitude;

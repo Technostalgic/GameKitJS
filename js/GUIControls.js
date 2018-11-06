@@ -29,16 +29,24 @@ class GUIControl {
 	OnLoseFocus() { }
 
 	/** virtual, called when the control is selected by the user */
-	Select() { }
+	Select() {
+		console.log(this.constructor.name + " ID#" + this.ID.toString() + " Selected");
+	}
 
 	/** virtual, called when the control is rendered */
-	Draw() {
+	Draw() { }
 
-		var col = new Color(225, 225, 225);
-		if(this.hasFocus)
-			col = new Color(185, 185, 185);
+	/**@type {GUIControl} sets the bounds of the control and then returns itself*/
+	AtRect(/**@type {rect}*/rec){
+
+		this.bounds = rec;
+		return this;
+	}
+	/**@type {GUIControl} sets the center of the bounds and then returns the cotnrol*/
+	AtPosition(/**@type {vec2}*/pos){
 		
-		this.bounds.DrawFill(this.renderContext, col);
+		this.bounds.center = pos;
+		return this;
 	}
 }
 
@@ -47,10 +55,40 @@ class GUIControl_Button extends GUIControl{
 	constructor(){
 		super();
 
+		/**@type {function}*/
+		this.action = null;
+		/**@type {TextRenderFormat}*/
+		this.textFormat = new TextRenderFormat();
+		/**@type {String}*/
 		this.label = "Button";
 	}
 
-	static FromLabel(label){
+	Select(){
+		super.Select();
+
+		if(!!this.action)
+			this.action();
+	}
+
+	Draw(){
+		super.Draw();
+
+		RenderHelper.DrawText(this.renderContext, this.label, this.bounds, this.textFormat);
+	}
+
+	/**@type {GUIControl_Button} creates a button with the specified label*/
+	static FromLabel(/**@type {GUI}*/parentGUI, /**@type {String}*/label){
 		
+		var r = new GUIControl_Button();
+		r._parentGUI = parentGUI;
+		r.label = label;
+		r.textFormat.SetToContext(r.renderContext);
+
+		var lwidth = Math.round(r.renderContext.measureText(r.label).width);
+		var bounds = new rect(new vec2(), new vec2(lwidth, 25))
+		bounds.AddPadding(5, 0);
+		r.bounds = bounds;
+
+		return r;
 	}
 }
