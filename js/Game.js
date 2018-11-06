@@ -3,7 +3,7 @@ class Game {
 	constructor() {
 
 		// the target resolution of the application
-		this.resolution = new vec2(600, 600);
+		this.resolution = new vec2(320);
 
 		// the canvas that everything will be rendered onto
 		this.renderTarget = document.createElement("canvas");
@@ -16,6 +16,8 @@ class Game {
 		this.canvasTarget = null;
 		/** @type {CanvasRenderingContext2D} */
 		this.canvasTargetContext = null;
+		/** @type {rect} */
+		this.viewport = null;
 
 		/** @type {GUI} */
 		this.currentGUI = null;
@@ -32,7 +34,7 @@ class Game {
 		/** @type {Number} */
 		this._lastStep = 0;
 	}
-	
+
 	/** sets the current GUI of the game */
 	SetCurrentGUI(/**@type {GUI}*/gui){
 
@@ -46,10 +48,14 @@ class Game {
 		this.inputHandler = handler;
 	}
 	/** sets the canvas that the game will be rendered onto */
-	SetPaintingTarget(canvas) {
+	SetCanvasTarget(canvas) {
 		
 		this.canvasTarget = canvas;
 		this.canvasTargetContext = this.canvasTarget.getContext("2d");
+
+		var maxSize = Math.max(canvas.width, canvas.height);
+		this.viewport = new rect(new vec2(), new vec2(maxSize));
+		this.viewport.center = new vec2(canvas.width, canvas.height).Scaled(0.5);
 	}
 
 	/** starts running the game */
@@ -98,7 +104,7 @@ class Game {
 		if(this.currentGUI)
 			this.currentGUI.Update(dt);
 	}
-	
+
 	/** clears the canvas to a solid color */
 	ClearCanvas(/** @type {Color}*/color = new Color(255, 255, 255)){
 		
@@ -116,7 +122,6 @@ class Game {
 		if(this.currentGUI)
 			this.currentGUI.Draw();
 
-		var drawTarget = new rect(vec2.zero, this.resolution.clone);
-		context.drawImage(this.renderTarget, drawTarget.left, drawTarget.top, drawTarget.width, drawTarget.height);
+		context.drawImage(this.renderTarget, this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height);
 	}
 }

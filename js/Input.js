@@ -6,6 +6,8 @@ class InputHandler{
 		this.parentGame = null;
 		/**@type {Object} */
 		this.listeners = null;
+		/**@type {HTMLCanvasElement}*/
+		this.canvasListener = null;
 	}
 
 	/** generates non-anonymous event listener functions */
@@ -23,6 +25,12 @@ class InputHandler{
 	/** attaches the the input events to the callback functions with respect to the specified canvas element */
 	AttachEvents(/**@type {HTMLCanvasElement}*/canvas){
 
+		if(!!this.canvasListener){
+			console.log("Input handler already hooked to canvas element");
+			return;
+		}
+
+		this.canvasListener = canvas;
 		if(!this.listeners)
 			this.GenerateEventListeners();
 
@@ -34,6 +42,9 @@ class InputHandler{
 	}
 	/** detaches the input events from the callback functions */
 	DetachEvents(/**@type {HTMLCanvasElement}*/canvas){
+
+		if(this.canvasListener == canvas)
+			this.canvasListener = null;
 
 		if(!this.listeners)
 			this.GenerateEventListeners();
@@ -53,17 +64,32 @@ class InputHandler{
 	/** called when the mouse is pressed */
 	OnMouseDown(e){
 		
+		var mpos = this.getCorrectedScreenPos(new vec2(e.offsetX, e.offsetY));
+
 		if(this.parentGame.currentGUI)
-			this.parentGame.currentGUI.OnCursorDown(new vec2(e.offsetX, e.offsetY));
+			this.parentGame.currentGUI.OnCursorDown(mpos);
 	}
 	/** called when the mouse is released */
 	OnMouseUp(e){ 
-		
+
+		var mpos = this.getCorrectedScreenPos(new vec2(e.offsetX, e.offsetY));
 	}
 	/** called when the mouse is moved */
 	OnMouseMove(e){
 		
+		var mpos = this.getCorrectedScreenPos(new vec2(e.offsetX, e.offsetY));
+
 		if(this.parentGame.currentGUI)
-			this.parentGame.currentGUI.OnCursorMove(new vec2(e.offsetX, e.offsetY));
+			this.parentGame.currentGUI.OnCursorMove(mpos);
+	}
+
+	/**@private @type {vec2} takes into account the ratio of the game resolution compared to the viewport size and position */
+	getCorrectedScreenPos(screenpos){
+
+		// calculate the mouse position offset and scale to the game's native resolution
+		var mperc = this.parentGame.viewport.CalculateContainedVector(screenpos);
+		mperc = mperc.Scaled(this.parentGame.resolution);
+
+		return mperc;
 	}
 }

@@ -17,6 +17,8 @@ class vec2 {
 	}
 	/**@type {vec2} scales the vector by the specified factor and returns the result */
 	Scaled(factor) {
+		if (factor instanceof vec2)
+			return new vec2(this.x * factor.x, this.y * factor.y);
 		return new vec2(this.x * factor, this.y * factor);
 	}
 
@@ -24,8 +26,12 @@ class vec2 {
 	get negated() {
 		return this.Scaled(-1);
 	}
+	/**@type {vec2} returns 1 divided by this */
+	get reciprocal() {
+		return new vec2(1 / this.x, 1 / this.y);
+	}
 	/**@type {vec2} returns a vector with the same XY ratio but it's magnitude scaled to 1 */
-	get normalized(){
+	get normalized() {
 		return this.Scaled(1 / this.magnitude);
 	}
 
@@ -62,75 +68,75 @@ class rect {
 	}
 
 	/**@type {Number}*/
-	get left(){
+	get left() {
 		return this.position.x;
 	}
 	/**@type {Number}*/
-	set left(value){
+	set left(value) {
 		this.size.x = this.right - value;
 		this.position.x = value;
 	}
 	/**@type {Number}*/
-	get right(){
+	get right() {
 		return this.position.x + this.size.x;
 	}
 	/**@type {Number}*/
-	set right(value){
+	set right(value) {
 		this.size.x = value - this.position.x;
 	}
 	/**@type {Number}*/
-	get top(){
+	get top() {
 		return this.position.y;
 	}
 	/**@type {Number}*/
-	set top(value){
+	set top(value) {
 		this.size.y = this.bottom - value;
 		this.position.y = value;
 	}
 	/**@type {Number}*/
-	get bottom(){
+	get bottom() {
 		return this.position.y + this.size.y;
 	}
 	/**@type {Number}*/
-	set bottom(value){
+	set bottom(value) {
 		this.size.y = value - this.position.y;
 	}
 
 	/**@type {Number}*/
-	get width(){
+	get width() {
 		return this.size.x;
 	}
-	set width(value){
+	set width(value) {
 		this.size.x = value;
 	}
 	/**@type {Number}*/
-	get height(){
+	get height() {
 		return this.size.y;
 	}
-	set height(value){
+	set height(value) {
 		this.size.x = value;
 	}
 
 	/**@type {vec2}*/
-	get center(){
+	get center() {
 		return this.position.Plus(this.size.Scaled(0.5));
 	}
-	set center(value){
+	set center(value) {
 		this.position = value.Minus(this.size.Scaled(0.5));
 	}
 
 	/**@type {Number}*/
-	get area(){
+	get area() {
 		return this.size.x * this.size.y;
 	}
 	/**@type {Boolean}*/
-	get isEmpty(){
+	get isEmpty() {
 		return this.area <= 0;
 	}
 
-	// returns true if this rect is overlaping the specified rect
-	Overlapping(rec){
-		
+	/**@type {Boolean} returns true if this rect is overlaping the specified rect */
+	Overlapping(rec) {
+
 		return (
 			this.left > rec.right &&
 			this.right < rec.left &&
@@ -138,8 +144,8 @@ class rect {
 			this.bottom > rec.top
 		);
 	}
-	// returns true if the specified point lies inside the rect (inclusive)
-	ContainsPoint(vec){
+	/**@type {Boolean} returns true if the specified point lies inside the rect (inclusive) */
+	ContainsPoint(vec) {
 
 		return (
 			this.right >= vec.x &&
@@ -149,16 +155,25 @@ class rect {
 		);
 	}
 
-	DrawFill( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color()){
+	/**@type {vec2} returns a vector between <0,0> and <1,1> as long as the vector is within the rect's bounds */
+	CalculateContainedVector(vec) {
+
+		vec = vec.Minus(this.position);
+		vec = vec.Scaled(this.size.reciprocal);
+
+		return vec;
+	}
+
+	DrawFill( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color()) {
 
 		ctx.fillStyle = color.ToRGBA();
 		ctx.fillRect(this.left, this.top, this.width, this.height);
 	}
-	DrawOutline( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color(), width = 1){
-		
+	DrawOutline( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color(), width = 1) {
+
 		ctx.strokeStyle = color.ToRGBA();
 		ctx.lineWidth = width;
-		
+
 		ctx.beginPath();
 		ctx.moveTo(this.left, this.top);
 		ctx.lineTo(this.left, this.bottom);
@@ -176,9 +191,9 @@ class rect {
 }
 
 /** a data structure used to represent a visual color */
-class Color{
-	
-	constructor(/**@type {Number}*/r = 0, /**@type {Number}*/g = 0, /**@type {Number}*/b = 0, /**@type {Number}*/a = 1){
+class Color {
+
+	constructor(/**@type {Number}*/r = 0, /**@type {Number}*/g = 0, /**@type {Number}*/b = 0, /**@type {Number}*/a = 1) {
 
 		this.r = r;
 		this.g = g;
@@ -187,20 +202,20 @@ class Color{
 	}
 
 	/** returns a string representing the color in RGB format that can be used to format a canvasRenderingContext2d fill or line style */
-	ToRGB(){
+	ToRGB() {
 
-		return "rgb(" + 
-			Math.round(this.r).toString() + "," + 
-			Math.round(this.g).toString() + "," + 
-			Math.round(this.b).toString() + ")" ;
+		return "rgb(" +
+			Math.round(this.r).toString() + "," +
+			Math.round(this.g).toString() + "," +
+			Math.round(this.b).toString() + ")";
 	}
 	/** returns a string representing the color in RGBA format that can be used to format a canvasRenderingContext2d fill or line style */
-	ToRGBA(){
-		
-		return "rgba(" + 
-			Math.round(this.r).toString() + "," + 
-			Math.round(this.g).toString() + "," + 
+	ToRGBA() {
+
+		return "rgba(" +
+			Math.round(this.r).toString() + "," +
+			Math.round(this.g).toString() + "," +
 			Math.round(this.b).toString() + "," +
-			this.a.toString() + ")" ;
+			this.a.toString() + ")";
 	}
 }

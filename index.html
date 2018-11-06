@@ -8,14 +8,14 @@
 	<script src="./js/Game.js"></script>
 </head>
 <body style="margin:0;text-align:center;background-color:black;color:white;">
-	<canvas id="gameCanvas" width="600" height="600"></canvas>
+	<canvas id="gameCanvas" width="640" height="640"></canvas>
 	<script>
 
 		// get a reference to the game canvas
 		var  gameCanvas = document.getElementById("gameCanvas"); 
 		var game = new Game();
 
-		game.SetPaintingTarget(gameCanvas);
+		game.SetCanvasTarget(gameCanvas);
 		game.SetInputHandler(new InputHandler());
 		game.SetCurrentGUI(GUI_Menu.Menu_MainMenu);
 		game.ClearCanvas();
