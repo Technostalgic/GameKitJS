@@ -77,16 +77,18 @@ class GUIControl_Button extends GUIControl{
 	}
 
 	/**@type {GUIControl_Button} creates a button with the specified label*/
-	static FromLabel(/**@type {GUI}*/parentGUI, /**@type {String}*/label){
+	static FromLabel(/**@type {String}*/label, /**@type {TextRenderFormat}*/textFormat = new TextRenderFormat()){
 		
 		var r = new GUIControl_Button();
-		r._parentGUI = parentGUI;
 		r.label = label;
-		r.textFormat.SetToContext(r.renderContext);
+		r.textFormat = textFormat;
 
-		var lwidth = Math.round(r.renderContext.measureText(r.label).width);
-		var bounds = new rect(new vec2(), new vec2(lwidth, 25))
-		bounds.AddPadding(5, 0);
+		var measureContext = document.createElement("canvas").getContext("2d");
+		r.textFormat.SetToContext(measureContext);
+
+		var lwidth = Math.round(measureContext.measureText(r.label).width);
+		var bounds = new rect(new vec2(), new vec2(lwidth, r.textFormat.size))
+		bounds.AddPadding(10);
 		r.bounds = bounds;
 
 		return r;

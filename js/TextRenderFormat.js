@@ -8,8 +8,10 @@ class TextRenderFormat{
 		this.style = "None";
 		/**@type {Number}*/
 		this.size = 16;
-		/**@type {enum(TextAlignment)}*/
-		this.alignment = TextAlignment.Center;
+		/**@type {enum(HorizontalTextAlignment)}*/
+		this.hAlign = HorizontalTextAlignment.Center;
+		/**@type {enum(VerticalTextAlignment)}*/
+		this.vAlign = VerticalTextAlignment.Center;
 		/**@type {Color}*/
 		this.fillColor = new Color();
 		/**@type {Color}*/
@@ -26,7 +28,7 @@ class TextRenderFormat{
 	SetToContext(/**@type {CanvasRenderingContext2D}*/ctx){
 
 		ctx.font = this.size.toString() + "px " + this.font;
-		ctx.textAlign = TextAlignmentToString(this.alignment);
+		ctx.textAlign = HorizontalTextAlignmentToString(this.hAlign);
 
 		if(this.fill)
 			ctx.fillStyle = this.fillColor.ToRGBA();
@@ -38,20 +40,25 @@ class TextRenderFormat{
 }
 
 /** enumerator for different text alignment styles */
-var TextAlignment = {
+var HorizontalTextAlignment = {
 	Left: 0,
 	Center: 1,
 	Right: 2
 }
+var VerticalTextAlignment = {
+	Top: 0,
+	Center: 1,
+	Bottom: 2
+}
 
-function TextAlignmentToString(textAlign){
+function HorizontalTextAlignmentToString(textAlign){
 
 	switch(textAlign){
-		case TextAlignment.Left:
+		case HorizontalTextAlignment.Left:
 			return "start";
-		case TextAlignment.Center:
+		case HorizontalTextAlignment.Center:
 			return "center";
-		case TextAlignment.Right:
+		case HorizontalTextAlignment.Right:
 			return "end";
 	}
 }

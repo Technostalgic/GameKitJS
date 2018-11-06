@@ -168,7 +168,7 @@ class rect {
 	AddPadding(horizontal, vertical = horizontal){
 
 		var ocent = this.center;
-		this.size = this.size.Plus(new vec2(horizontal, vertical));
+		this.size = this.size.Plus(new vec2(horizontal, vertical).Scaled(2));
 		this.center = ocent;
 	}
 	/**@type {Number} returns a number that represents how different this rect is from another*/

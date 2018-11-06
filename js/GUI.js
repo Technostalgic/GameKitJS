@@ -171,8 +171,13 @@ class GUI_Menu extends GUI{
 	static get Menu_MainMenu(){
 		var r = new GUI_Menu(game);
 
-		var button = GUIControl_Button.FromLabel(r, "Button").AtPosition(new vec2(150));
-		r.AddControl(button);
+		var startButton = GUIControl_Button.FromLabel("Start Game").AtPosition(new vec2(150, 150));
+		var optionsButton = GUIControl_Button.FromLabel("Option").AtPosition(new vec2(150, 200));
+		var extrasButton = GUIControl_Button.FromLabel("Extras").AtPosition(new vec2(150, 250));
+
+		r.AddControl(startButton);
+		r.AddControl(optionsButton);
+		r.AddControl(extrasButton);
 		
 		return r;
 	}
