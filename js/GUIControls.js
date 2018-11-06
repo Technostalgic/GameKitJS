@@ -42,9 +42,15 @@ class GUIControl {
 	}
 }
 
-/**  */
+/** A button control */
 class GUIControl_Button extends GUIControl{
 	constructor(){
 		super();
+
+		this.label = "Button";
+	}
+
+	static FromLabel(label){
+		
 	}
 }

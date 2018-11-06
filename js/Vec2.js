@@ -43,6 +43,10 @@ class vec2 {
 	get magnitude() {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
+	/**@type {vec2} returns the vector rounded to the nearst whole number*/
+	get rounded(){
+		return new vec2(Math.round(this.x), Math.round(this.y));
+	}
 	/**@type {vec2} returns a new instance of the vector with the same values */
 	get clone() {
 		return new vec2(this.x, this.y);
@@ -125,6 +129,11 @@ class rect {
 		this.position = value.Minus(this.size.Scaled(0.5));
 	}
 
+	/**@type {rect} returns a new instance of a rect with the same values as this*/
+	get clone(){
+		return new rect(this.position.clone, this.size.clone);
+	}
+
 	/**@type {Number}*/
 	get area() {
 		return this.size.x * this.size.y;
@@ -155,6 +164,10 @@ class rect {
 		);
 	}
 
+	/**@type {Number} returns a number that represents how different this rect is from another*/
+	GetDifference(/**@type {rect}*/rec){
+		return this.size.Minus(rec.size).magnitude + this.position.Minus(rec.position).magnitude;
+	}
 	/**@type {vec2} returns a vector between <0,0> and <1,1> as long as the vector is within the rect's bounds */
 	CalculateContainedVector(vec) {
 
@@ -167,7 +180,7 @@ class rect {
 	DrawFill( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color()) {
 
 		ctx.fillStyle = color.ToRGBA();
-		ctx.fillRect(this.left, this.top, this.width, this.height);
+		ctx.fillRect(Math.round(this.left), Math.round(this.top), Math.round(this.width), Math.round(this.height));
 	}
 	DrawOutline( /**@type {CanvasRenderingContext2D}*/ ctx, /**@type {Color}*/color = new Color(), width = 1) {
 
@@ -175,10 +188,10 @@ class rect {
 		ctx.lineWidth = width;
 
 		ctx.beginPath();
-		ctx.moveTo(this.left, this.top);
-		ctx.lineTo(this.left, this.bottom);
-		ctx.lineTo(this.right, this.bottom);
-		ctx.lineTo(this.right, this.top);
+		ctx.moveTo(Math.round(this.left), Math.round(this.top));
+		ctx.lineTo(Math.round(this.left), Math.round(this.bottom));
+		ctx.lineTo(Math.round(this.right), Math.round(this.bottom));
+		ctx.lineTo(Math.round(this.right), Math.round(this.top));
 		ctx.closePath();
 
 		ctx.stroke();

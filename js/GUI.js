@@ -165,7 +165,7 @@ class GUI_Menu extends GUI{
 	Draw(){
 		super.Draw();
 		
-		this.selectionCursor.DrawOutline(this.renderContext, new Color(0, 0, 0, 0.5));
+		this.selectionCursor.DrawOutline(this.renderContext, new Color(0, 0, 0, 0.5), 2);
 	}
 
 	static get Menu_MainMenu(){

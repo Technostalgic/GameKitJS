@@ -10,6 +10,7 @@ class Game {
 		this.renderTarget.width = this.resolution.x;
 		this.renderTarget.height = this.resolution.y;
 		this.renderContext = this.renderTarget.getContext("2d");
+		this.renderContext.imageSmoothingEnabled =  false;
 
 		// the webpage canvas to render the game to
 		/** @type {HTMLCanvasElement} */
@@ -52,6 +53,7 @@ class Game {
 		
 		this.canvasTarget = canvas;
 		this.canvasTargetContext = this.canvasTarget.getContext("2d");
+		this.canvasTargetContext.imageSmoothingEnabled = false;
 
 		var maxSize = Math.max(canvas.width, canvas.height);
 		this.viewport = new rect(new vec2(), new vec2(maxSize));
