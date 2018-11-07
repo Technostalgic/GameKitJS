@@ -6,11 +6,16 @@ class Game {
 		this.resolution = new vec2(320);
 
 		// the canvas that everything will be rendered onto
+		/**@type {HTMLCanvasElement}*/
 		this.renderTarget = document.createElement("canvas");
 		this.renderTarget.width = this.resolution.x;
 		this.renderTarget.height = this.resolution.y;
+		/**@type {CanvasRenderingContext2D}*/
 		this.renderContext = this.renderTarget.getContext("2d");
 		this.renderContext.imageSmoothingEnabled = false;
+
+		/**@type {ContentPipeline}*/
+		this.content = null;
 
 		// the webpage canvas to render the game to
 		/** @type {HTMLCanvasElement} */
@@ -76,6 +81,10 @@ class Game {
 
 		this.inputHandler.DetachEvents(this.canvasTarget);
 		this._isRunning = false;
+	}
+
+	LoadContent(){
+		
 	}
 
 	/** @private handles a full game cycle and sets up another to be called */

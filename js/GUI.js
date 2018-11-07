@@ -176,6 +176,13 @@ class GUI_SplashScreen extends GUI {
 		super();
 	}
 
+	generateBackground(){
+		super.generateBackground();
+
+		this._bgContext.fillStyle = new Color(0,0,0).ToRGBA();
+		this._bgContext.fillRect(0, 0, this._background.width, this._background.height);
+	}
+
 	Update(dt) {
 		super.Update(dt);
 
