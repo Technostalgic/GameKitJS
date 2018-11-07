@@ -10,7 +10,7 @@ class Game {
 		this.renderTarget.width = this.resolution.x;
 		this.renderTarget.height = this.resolution.y;
 		this.renderContext = this.renderTarget.getContext("2d");
-		this.renderContext.imageSmoothingEnabled =  false;
+		this.renderContext.imageSmoothingEnabled = false;
 
 		// the webpage canvas to render the game to
 		/** @type {HTMLCanvasElement} */
@@ -37,20 +37,21 @@ class Game {
 	}
 
 	/** sets the current GUI of the game */
-	SetCurrentGUI(/**@type {GUI}*/gui){
+	SetCurrentGUI(/**@type {GUI}*/gui) {
 
 		gui.parentGame = this;
 		this.currentGUI = gui;
+		this.currentGUI.Initialize();
 	}
 	/** attaches an @type {InputHandler} object to the game */
-	SetInputHandler(/** @type {InputHandler} */handler){
+	SetInputHandler(/** @type {InputHandler} */handler) {
 
 		handler.parentGame = this;
 		this.inputHandler = handler;
 	}
 	/** sets the canvas that the game will be rendered onto */
 	SetCanvasTarget(canvas) {
-		
+
 		this.canvasTarget = canvas;
 		this.canvasTargetContext = this.canvasTarget.getContext("2d");
 		this.canvasTargetContext.imageSmoothingEnabled = false;
@@ -61,17 +62,17 @@ class Game {
 	}
 
 	/** starts running the game */
-	StartRunning(){
+	StartRunning() {
 
 		this.inputHandler.AttachEvents(this.canvasTarget);
 
-		this._lastStep = performance.now();
+		this._lastStep = performance.now() / 1000;
 		this._isRunning = true;
-		
+
 		this.step();
 	}
 	/** stops running the game */
-	StopRunning(){
+	StopRunning() {
 
 		this.inputHandler.DetachEvents(this.canvasTarget);
 		this._isRunning = false;
@@ -92,7 +93,7 @@ class Game {
 		// sets up the next step to be called if the game is running
 		var ths = this;
 		if (this._isRunning)
-			requestAnimationFrame(function(){ ths.step(); });
+			requestAnimationFrame(function () { ths.step(); });
 	}
 	/** updates the game world by the specified delta time in seconds */
 	Update(/**@type {Number}*/ dt) {
@@ -103,16 +104,16 @@ class Game {
 		this.elapsedTime += dt;
 
 		// update the current GUI
-		if(this.currentGUI)
+		if (this.currentGUI)
 			this.currentGUI.Update(dt);
 	}
 
 	/** clears the canvas to a solid color */
-	ClearCanvas(/** @type {Color}*/color = new Color(255, 255, 255)){
-		
+	ClearCanvas(/** @type {Color}*/color = new Color(255, 255, 255)) {
+
 		this.canvasTargetContext.fillStyle = color.ToRGB();
 		this.canvasTargetContext.fillRect(0, 0, this.canvasTarget.width, this.canvasTarget.height);
-		
+
 		this.renderContext.fillStyle = color.ToRGB();
 		this.renderContext.fillRect(0, 0, this.renderTarget.width, this.renderTarget.height);
 	}
@@ -121,7 +122,7 @@ class Game {
 
 		this.ClearCanvas();
 
-		if(this.currentGUI)
+		if (this.currentGUI)
 			this.currentGUI.Draw();
 
 		context.drawImage(this.renderTarget, this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height);

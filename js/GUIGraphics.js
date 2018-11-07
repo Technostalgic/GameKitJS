@@ -8,13 +8,16 @@ class GUIGraphic {
 
 	/**@type {CanvasRenderingContext2D}*/
 	get renderContext() {
-		return this._parentGUI.parentGame.renderContext;
+		return this._parentGUI.renderContext;
+	}
+	get staticContext() {
+		return this._parentGUI.staticContext;
 	}
 
-	/** paints the graphic on to the initial GUI Canvas, use this if the graphic is unchanging */
-	DrawStatic(/**@type {CanvasRenderingContext2D}*/ctx) { }
-	/** repaints the graphic onto the render context each fram */
-	DrawDynamic(/**@type {CanvasRenderingContext2D}*/ctx) { }
+	/** paints the graphic on to the static GUI background Canvas, use this if the graphic is unchanging */
+	DrawStatic() { }
+	/** repaints the graphic onto the render context each frame, usie this if the graphic changes at all */
+	DrawDynamic() { }
 
 	/** Sets the center of the graphic to the specified location */
 	SetCenter(center) {
@@ -32,10 +35,10 @@ class GUIGraphic_IMG extends GUIGraphic {
 		this.sourceRect;
 	}
 
-	DrawStatic(/**@type {CanvasRenderingContext2D}*/ctx){
-		
+	DrawStatic(/**@type {CanvasRenderingContext2D}*/ctx) {
+
 		ctx.drawImage(
-			this.texture, 
+			this.texture,
 			this.sourceRect.left, this.sourceRect.top,
 			this.sourceRect.width, this.sourceRect.height,
 			this.bounds.left, this.bounds.top,
