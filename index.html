@@ -20,6 +20,7 @@
 		var game = new Game();
 
 		game.SetCanvasTarget(gameCanvas);
+		game.SetContentPipeline(new ContentPipeline());
 		game.SetInputHandler(new InputHandler());
 		game.SetCurrentGUI(GUI_SplashScreen.Default);
 		game.ClearCanvas();

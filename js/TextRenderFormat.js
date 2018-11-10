@@ -3,11 +3,11 @@ class TextRenderFormat{
 	constructor(){
 
 		/**@type {String}*/
-		this.font = "Sans-Serif";
+		this.font = "Munro";
 		/**@type {String}*/
 		this.style = "None";
 		/**@type {Number}*/
-		this.size = 16;
+		this.size = 10;
 		/**@type {enum(HorizontalTextAlignment)}*/
 		this.hAlign = HorizontalTextAlignment.Center;
 		/**@type {enum(VerticalTextAlignment)}*/

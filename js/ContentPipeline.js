@@ -28,12 +28,22 @@ class ContentPipeline{
 				content = new Audio();
 				break;
 			case AssetType.Font: 
-				// TODO: not really sure but something
+				content = new FontFace(assetName, "url(" + sourcePath + ")");
 				break;
 		}
 		
 		asset.content = content;
 		this.unfinishedAssets.push(asset);
+
+		var ths = this;
+		if(assetType == AssetType.Font)
+			content.load().then(function(ff){
+				ths.fonts[assetName] = ff;
+				ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(ff), 1);
+				document.fonts.add(ff);
+			}).catch(function(err){
+				console.log(err);
+			});
 
 		// set the onfinishloading delegate and start loading the asset
 		content.onload = this.getOnAssetDoneLoadingDelegate(asset, asset.type);
@@ -62,7 +72,7 @@ class ContentPipeline{
 
 			// adds the content to the appropriate list
 			objlist[obj.name] = obj.content;
-
+			
 			// removes it from the 'unfinished loading' list
 			ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(obj), 1);
 		}

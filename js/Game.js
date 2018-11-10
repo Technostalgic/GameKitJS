@@ -65,6 +65,10 @@ class Game {
 		this.viewport = new rect(new vec2(), new vec2(maxSize));
 		this.viewport.center = new vec2(canvas.width, canvas.height).Scaled(0.5);
 	}
+	/** sets the game's content pipeline that content can be loaded from */
+	SetContentPipeline(content){
+		this.content = content;
+	}
 
 	/** starts running the game */
 	StartRunning() {
