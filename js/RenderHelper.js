@@ -29,4 +29,12 @@ class RenderHelper{
 		if(format.fill)
 			ctx.fillText(text, textpos.x, textpos.y);
 	}
+
+	/** draws the image at the specified position */
+	static DrawImage(/**@type {CanvasRenderingContext2D}*/ctx, /**@type {HTMLImageElement}*/img, /**@type {vec2}*/position){
+		
+		var r = new rect(new vec2(), new vec2(img.width, img.height));
+		r.center = position;
+		ctx.drawImage(img, r.left, r.top);
+	}
 }

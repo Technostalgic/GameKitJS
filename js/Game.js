@@ -87,10 +87,6 @@ class Game {
 		this._isRunning = false;
 	}
 
-	LoadContent(){
-		
-	}
-
 	/** @private handles a full game cycle and sets up another to be called */
 	step() {
 

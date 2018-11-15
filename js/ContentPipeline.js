@@ -4,10 +4,15 @@ class ContentPipeline{
 	/** Initializes a new content pipeline object */
 	constructor(){
 		
+		this._loadingStart = null;
+		this._onFinishLoading = function(){ };
+
 		this.graphics = {};
 		this.audio = {};
 		this.fonts = {};
 		this.unfinishedAssets = [];
+
+		this.LoadContent();
 	}
 
 	/** starts loading an asset, when finished it will be sorted into the appropriate graphics/audio object */
@@ -49,8 +54,37 @@ class ContentPipeline{
 		content.onload = this.getOnAssetDoneLoadingDelegate(asset, asset.type);
 		content.src = sourcePath;
 	}
+	/** virtual, starts loading all the content associated with this content pipeline */
+	LoadContent(){ }
 
-	/**@private returns a delegate function to call when the specified object is done loading */
+	/** tells the content pipeline to do something once it has finished loading all the assets */
+	SetFinishAction(/**@type {Function}*/func){
+		
+		this._onFinishLoading = func;
+		this.StartFinishLoadingCheck();
+	}
+	/** starts checking to see if the content pipeline has finished loading all the assets each tick until it is finished */
+	StartFinishLoadingCheck(){
+
+		//if the loading start timer hasn't been started, set it
+		if(this._loadingStart == null)
+			this._loadingStart = performance.now();
+
+		// if it's done loading, call _onFinishLoading() and stop checking
+		if(!this.isLoading){
+			this._onFinishLoading();
+			this._loadingStart = null;
+			console.log("Loading Finished! Elapsed time: " + (performance.now() - this._loadingStart).toString() + "ms");
+			return;
+		}
+		
+		var ths = this;
+		setTimeout(function(){
+			ths.StartFinishLoadingCheck();
+		});
+	}
+
+	/**@private @type {Function} returns a delegate function to call when the specified object is done loading */
 	getOnAssetDoneLoadingDelegate(contentObj, assetType){
 
 		// declare references to be used in the delegate
@@ -79,8 +113,8 @@ class ContentPipeline{
 	}
 
 	/**@type {Boolean}*/
-	get IsLoading(){
-		return true;
+	get isLoading(){
+		return this.unfinishedAssets.length > 0;
 	}
 }
 
@@ -90,4 +124,16 @@ var AssetType = {
 	Image: 0,
 	Audio: 1,
 	Font: 2
+}
+
+class VanillaContent extends ContentPipeline{
+
+	constructor(){
+		super();
+	}
+
+	LoadContent(){
+
+		this.LoadAsset("menus_splashscreen", "./gfx/menus/splashscreen.png", AssetType.Image)
+	}
 }

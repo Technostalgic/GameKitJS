@@ -20,11 +20,14 @@
 		var game = new Game();
 
 		game.SetCanvasTarget(gameCanvas);
-		game.SetContentPipeline(new ContentPipeline());
+		game.SetContentPipeline(new VanillaContent());
 		game.SetInputHandler(new InputHandler());
-		game.SetCurrentGUI(GUI_SplashScreen.Default);
-		game.ClearCanvas();
-		game.StartRunning();
+
+		game.content.SetFinishAction(function(){
+			game.SetCurrentGUI(GUI_SplashScreen.Default);
+			game.ClearCanvas();
+			game.StartRunning();
+		});
 	</script>
 </body>
 </HTML>

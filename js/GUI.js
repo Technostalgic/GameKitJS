@@ -181,6 +181,8 @@ class GUI_SplashScreen extends GUI {
 
 		this._bgContext.fillStyle = new Color(0,0,0).ToRGBA();
 		this._bgContext.fillRect(0, 0, this._background.width, this._background.height);
+
+		RenderHelper.DrawImage(this._bgContext, this.parentGame.content.graphics.menus_splashscreen, this.parentGame.resolution.Scaled(0.5));
 	}
 
 	Update(dt) {
