@@ -33,7 +33,7 @@ class ContentPipeline{
 				content = new Audio();
 				break;
 			case AssetType.Font: 
-				content = new FontFace(assetName, "url(" + sourcePath + ")");
+				content = new SpriteFont("url(" + sourcePath + ")");
 				break;
 		}
 		
@@ -134,6 +134,7 @@ class VanillaContent extends ContentPipeline{
 
 	LoadContent(){
 
-		this.LoadAsset("menus_splashscreen", "./gfx/menus/splashscreen.png", AssetType.Image)
+		this.LoadAsset("menus_splashscreen", "./gfx/menus/splashscreen.png", AssetType.Image);
+		this.LoadAsset("FontDefault", "./gfx/font/default.png");
 	}
 }
