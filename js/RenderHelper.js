@@ -37,4 +37,15 @@ class RenderHelper{
 		r.center = position;
 		ctx.drawImage(img, r.left, r.top);
 	}
+
+	/** draws a portion of the specified image at the specified target rect */
+	static DrawSprite(/**@type {CanvasRenderingContext2D}*/ctx, /**@type {HTMLImageElement}*/img, /**@type {rect}*/targetLocation, /**@type {rect}*/ spriteRect){
+
+		if(!spriteRect)
+			spriteRect = new rect(vec2.zero, new vec2(img.width, img.height));
+		
+		ctx.drawImage(img, 
+			spriteRect.left, spriteRect.top, spriteRect.width, spriteRect.height, 
+			targetLocation.left, targetLocation.top, targetLocation.width, targetLocation.height );
+	}
 }

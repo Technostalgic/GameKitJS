@@ -78,7 +78,7 @@ class GUIControl_Button extends GUIControl{
 
 	/**@type {GUIControl_Button} creates a button with the specified label*/
 	static FromLabel(/**@type {String}*/label, /**@type {TextRenderFormat}*/textFormat = new TextRenderFormat()){
-		
+
 		var r = new GUIControl_Button();
 		r.label = label;
 		r.textFormat = textFormat;

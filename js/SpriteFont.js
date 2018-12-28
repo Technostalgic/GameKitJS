@@ -4,12 +4,47 @@ class SpriteFont{
 	constructor(){
 
 		/** @type {Image} */
-		this.spriteSheet = null;
+		this._spriteSheet = null;
 
 		this.spriteTable = [];
 
 		this.maxSpriteWidth = 12;
 		this.maxSpriteHeight = 16;
+
+		/** private */
+		this._loaded = false;
+	}
+
+	/** @type {SpriteFont} loads a spriteFont from a file path and returns it */
+	static Load(/**@type {string}*/ path){
+
+		var r = new SpriteFont();
+
+		r.loadSpriteSheet(path);
+
+		return r;
+	}
+
+	/** loads a spritesheet texture into the spritefont */
+	loadSpriteSheet(/**@type {string}*/ path){
+
+		this._spriteSheet = new Image();
+		this._spriteSheet.src = path;
+
+		this._loaded = false;
+		var ths = this;
+		this._spriteSheet.onload = function(){
+			ths._loaded = true;
+		};
+	}
+
+	/** whether or not the spritesheet for this spritefont has loaded */
+	get loaded(){
+		return this._loaded;
+	}
+
+	get spriteSheet(){
+		return this._spriteSheet;
 	}
 
 	/** maps a character to the specified sprite rectangle */
@@ -18,14 +53,25 @@ class SpriteFont{
 		this.spriteTable[char.charCodeAt[0]] = sprite;
 	}
 
-	/** renders a string using the sprite characters from the SpriteFont sprite sheet */
-	drawString(/** @type {CanvasRenderingContext2D} */ ctx, /**@type {string}*/ str){
+	/** @type {HTMLCanvasElement} renders a string using the sprite characters from the SpriteFont 
+	 * sprite sheet onto a canvas and returns it */
+	generateTextImage(/**@type {string}*/ str, /**@type {TextRenderFormat}*/ format){
 
-		let pos = new vec2();
+		var tcanvas = document.createElement("canvas");
+		tcanvas.width = str.length * this.maxSpriteWidth;
+		tcanvas.height = this.maxSpriteHeight;
+		let ctx = tcanvas.getContext("2d");
 
-		sprites = [];
+		let cwidth = 0;
 		for(let i = 0; i < str.length; i++){
 			let sprite = this.spriteTable[str.charCodeAt[i]];
+			let target = new rect(new vec2(cwidth, 0), sprite.size.clone());
+
+			RenderHelper.DrawSprite(ctx, this.spriteSheet, target, sprite);
+			cwidth += sprite.width;
 		}
+
+		tcanvas.width = cwidth;
+		return tcanvas;
 	}
 }
