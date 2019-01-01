@@ -18,6 +18,8 @@ class ContentPipeline{
 	/** starts loading an asset, when finished it will be sorted into the appropriate graphics/audio object */
 	LoadAsset(/**@type {String}*/assetName, /**@type {String}*/sourcePath, assetType){
 
+		console.log("loading '" + assetName + "' from " + sourcePath);
+
 		// define the asset object
 		var asset = {};
 		asset.name = assetName;
@@ -37,10 +39,10 @@ class ContentPipeline{
 			
 			case AssetType.Font: 
 				var ths = this;
-				var onload = function(ff){
-					ths.fonts[assetName] = ff;
-					ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(ff), 1);
-					document.fonts.add(ff);
+				var onload = function(){
+					ths.fonts[assetName] = asset;
+					ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(asset), 1);
+					console.log("finished loading '" + assetName + "'");
 				};
 				content = SpriteFont.Load(sourcePath, onload);
 				break;
@@ -111,6 +113,8 @@ class ContentPipeline{
 			
 			// removes it from the 'unfinished loading' list
 			ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(obj), 1);
+
+			console.log("finished loading '" + obj.name + "'");
 		}
 	}
 

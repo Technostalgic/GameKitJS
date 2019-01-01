@@ -16,11 +16,11 @@ class SpriteFont{
 	}
 
 	/** @type {SpriteFont} loads a spriteFont from a file path and returns it */
-	static Load(/**@type {string}*/ path){
+	static Load(/**@type {string}*/ path, /**@type {Function}*/ onFinishDelegate = null){
 
 		var r = new SpriteFont();
 
-		r.loadSpriteSheet(path);
+		r.loadSpriteSheet(path, onFinishDelegate);
 
 		return r;
 	}
@@ -33,12 +33,6 @@ class SpriteFont{
 
 		if(onFinishDelegate != null)
 			this._spriteSheet.onload = onFinishDelegate;
-
-		this._loaded = false;
-		var ths = this;
-		this._spriteSheet.onload = function(){
-			ths._loaded = true;
-		};
 	}
 
 	/** whether or not the spritesheet for this spritefont has loaded */
