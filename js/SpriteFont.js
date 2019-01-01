@@ -26,10 +26,13 @@ class SpriteFont{
 	}
 
 	/** loads a spritesheet texture into the spritefont */
-	loadSpriteSheet(/**@type {string}*/ path){
+	loadSpriteSheet(/**@type {string}*/ path, onFinishDelegate = null){
 
 		this._spriteSheet = new Image();
 		this._spriteSheet.src = path;
+
+		if(onFinishDelegate != null)
+			this._spriteSheet.onload = onFinishDelegate;
 
 		this._loaded = false;
 		var ths = this;

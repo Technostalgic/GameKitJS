@@ -26,33 +26,35 @@ class ContentPipeline{
 		// determine what kind of content will be loaded based on the assetType
 		var content;
 		switch(assetType){
+			
 			case AssetType.Image: 
 				content = new Image();
 				break;
+			
 			case AssetType.Audio: 
 				content = new Audio();
 				break;
+			
 			case AssetType.Font: 
-				content = new SpriteFont("url(" + sourcePath + ")");
+				var ths = this;
+				var onload = function(ff){
+					ths.fonts[assetName] = ff;
+					ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(ff), 1);
+					document.fonts.add(ff);
+				};
+				content = SpriteFont.Load(sourcePath, onload);
 				break;
 		}
 		
 		asset.content = content;
 		this.unfinishedAssets.push(asset);
 
-		var ths = this;
-		if(assetType == AssetType.Font)
-			content.load().then(function(ff){
-				ths.fonts[assetName] = ff;
-				ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(ff), 1);
-				document.fonts.add(ff);
-			}).catch(function(err){
-				console.log(err);
-			});
+		if(assetType != AssetType.Font){
 
-		// set the onfinishloading delegate and start loading the asset
-		content.onload = this.getOnAssetDoneLoadingDelegate(asset, asset.type);
-		content.src = sourcePath;
+			// set the onfinishloading delegate and start loading the asset
+			content.onload = this.getOnAssetDoneLoadingDelegate(asset, asset.type);
+			content.src = sourcePath;
+		}
 	}
 	/** virtual, starts loading all the content associated with this content pipeline */
 	LoadContent(){ }
@@ -135,6 +137,6 @@ class VanillaContent extends ContentPipeline{
 	LoadContent(){
 
 		this.LoadAsset("menus_splashscreen", "./gfx/menus/splashscreen.png", AssetType.Image);
-		this.LoadAsset("FontDefault", "./gfx/font/default.png");
+		this.LoadAsset("FontDefault", "./gfx/fonts/default.png", AssetType.Font);
 	}
 }
