@@ -140,7 +140,7 @@ class VanillaContent extends ContentPipeline{
 
 	LoadContent(){
 
-		this.LoadAsset("menus_splashscreen", "./gfx/menus/splashscreen.png", AssetType.Image);
+		this.LoadAsset("menus_splashscreen", "./gfx/splashscreen.png", AssetType.Image);
 		this.LoadAsset("FontDefault", "./gfx/fonts/default.png", AssetType.Font);
 	}
 }
