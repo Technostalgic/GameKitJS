@@ -12,6 +12,9 @@ class ContentPipeline{
 		this.fonts = {};
 		this.unfinishedAssets = [];
 
+		/**@type {SpriteFont}*/
+		this.defaultFont = null;
+
 		this.LoadContent();
 	}
 
@@ -37,14 +40,18 @@ class ContentPipeline{
 				content = new Audio();
 				break;
 			
-			case AssetType.Font: 
+			case AssetType.Font:
 				var ths = this;
 				var onload = function(){
-					ths.fonts[assetName] = asset;
+					ths.fonts[assetName] = asset.content;
 					ths.unfinishedAssets.splice(ths.unfinishedAssets.indexOf(asset), 1);
 					console.log("finished loading '" + assetName + "'");
 				};
+
 				content = SpriteFont.Load(sourcePath, onload);
+				if(this.defaultFont == null)
+					this.defaultFont = content;
+				
 				break;
 		}
 		
@@ -141,6 +148,84 @@ class VanillaContent extends ContentPipeline{
 	LoadContent(){
 
 		this.LoadAsset("menus_splashscreen", "./gfx/splashscreen.png", AssetType.Image);
-		this.LoadAsset("FontDefault", "./gfx/fonts/default.png", AssetType.Font);
+		this.LoadAsset("DefaultFont", "./gfx/fonts/default.png", AssetType.Font);
+	}
+
+	MapFontCharacters(){
+		
+		/**@type {SpriteFont}*/
+		var font = this.fonts.DefaultFont;
+
+		var chars = " !" + '"' + "%&'()*+,-./";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 0);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
+
+		chars = "0123456789:;<=>?";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 12);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
+
+		chars = "@ABCDEFGHIJKLMNO";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 24);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
+
+		chars = "PQRSTUVWXYZ[/]^_";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 36);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
+
+		chars = "`abcdefghijklmno";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 48);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
+
+		chars = "pqrstuvwxyz{|}~";
+		for(let i = 0; i < 16; i++){
+			let x = i * 8;
+			let char = chars.charAt(i);
+
+			let pos = new vec2(x, 60);
+			let size = new vec2(8, 12);
+
+			let sprite = new rect(pos, size);
+			font.MapCharacter(char, sprite);
+		}
 	}
 }

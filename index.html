@@ -25,6 +25,8 @@
 		game.SetInputHandler(new InputHandler());
 
 		game.content.SetFinishAction(function(){
+			
+			game.content.MapFontCharacters();
 			game.SetCurrentGUI(GUI_SplashScreen.Default);
 			game.ClearCanvas();
 			game.StartRunning();

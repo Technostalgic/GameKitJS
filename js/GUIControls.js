@@ -61,6 +61,8 @@ class GUIControl_Button extends GUIControl{
 		this.textFormat = new TextRenderFormat();
 		/**@type {String}*/
 		this.label = "Button";
+		/**@type {HTMLCanvasElement}*/
+		this.labelTexture = null;
 	}
 
 	Select(){
@@ -70,10 +72,19 @@ class GUIControl_Button extends GUIControl{
 			this.action();
 	}
 
+	/** generates the button's label texture */
+	GenerateLabelTexture(/**@type {SpriteFont}*/spritefont, /**@type {TextRenderFormat}*/format = TextRenderFormat.default){
+
+		this.labelTexture = spritefont.GenerateTextImage(this.label, format)
+	}
+	
 	Draw(){
 		super.Draw();
 
-		RenderHelper.DrawText(this.renderContext, this.label, this.bounds, this.textFormat);
+		if(this.labelTexture == null)
+			this.GenerateLabelTexture(this._parentGUI.parentGame.content.defaultFont);
+
+		RenderHelper.DrawImage(this.renderContext, this.labelTexture, this.bounds.center);
 	}
 
 	/**@type {GUIControl_Button} creates a button with the specified label*/
@@ -93,6 +104,4 @@ class GUIControl_Button extends GUIControl{
 
 		return r;
 	}
-
-
 }

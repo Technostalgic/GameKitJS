@@ -24,6 +24,10 @@ class TextRenderFormat{
 		this.outline = false;
 	}
 
+	static get default(){
+		return new TextRenderFormat();
+	}
+
 	/** applies the render format styling information to the specified context */
 	SetToContext(/**@type {CanvasRenderingContext2D}*/ctx){
 

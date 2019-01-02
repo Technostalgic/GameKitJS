@@ -43,7 +43,7 @@ class RenderHelper{
 
 		if(!spriteRect)
 			spriteRect = new rect(vec2.zero, new vec2(img.width, img.height));
-		
+
 		ctx.drawImage(img, 
 			spriteRect.left, spriteRect.top, spriteRect.width, spriteRect.height, 
 			targetLocation.left, targetLocation.top, targetLocation.width, targetLocation.height );
