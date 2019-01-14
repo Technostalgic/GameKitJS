@@ -93,12 +93,10 @@ class GUIControl_Button extends GUIControl{
 		var r = new GUIControl_Button();
 		r.label = label;
 		r.textFormat = textFormat;
-
-		var measureContext = document.createElement("canvas").getContext("2d");
-		r.textFormat.SetToContext(measureContext);
-
-		var lwidth = Math.round(measureContext.measureText(r.label).width);
-		var bounds = new rect(new vec2(), new vec2(lwidth, r.textFormat.size))
+		
+		r.GenerateLabelTexture(Game.instance.content.defaultFont, textFormat);
+		
+		var bounds = new rect(new vec2(), new vec2(r.labelTexture.width, r.labelTexture.height));
 		bounds.AddPadding(10);
 		r.bounds = bounds;
 

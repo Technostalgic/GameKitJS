@@ -39,6 +39,29 @@ class Game {
 		this._isRunning = false;
 		/** @type {Number} */
 		this._lastStep = 0;
+
+		// set the singleton instance
+		Game.instance = this;
+	}
+
+	/** @static @property @type {Game} the singleton instance */
+	static get instance(){
+		if(!Game._instance){
+			console.log("No game singleton instance has been created. Use the 'new' keyword to instantiate a singleton instance.");
+			return null;
+		}
+		return Game._instance;
+	}
+	/** @type {Game} */
+	static set instance(value){
+
+		if(!!Game.instance)
+			console.log("Game object singleton pattern violated, only one game instance should exist at any time. " +
+			"Unexpected problems may occur.");
+		else
+			console.log("Game singleton instance has been created.");
+
+		Game._instance = value;
 	}
 
 	/** sets the current GUI of the game */
