@@ -1,3 +1,10 @@
+///
+///	code by Isaiah Smith
+///		
+///	https://technostalgic.tech  
+///	twitter @technostalgicGM
+///
+
 /** information to render a string according to a specific format */
 class TextRenderFormat{
 	constructor(){

@@ -1,3 +1,10 @@
+///
+///	code by Isaiah Smith
+///		
+///	https://technostalgic.tech  
+///	twitter @technostalgicGM
+///
+
 /** an object used to create a font from a spritesheet of pre-drawn text characters */
 class SpriteFont {
 	/** initialize a new instance of a SpriteFont object */

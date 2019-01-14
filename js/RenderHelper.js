@@ -1,3 +1,10 @@
+///
+///	code by Isaiah Smith
+///		
+///	https://technostalgic.tech  
+///	twitter @technostalgicGM
+///
+
 class RenderHelper{
 
 	/** draws text at the specified location */

@@ -1,3 +1,10 @@
+///
+/// 	code by Isaiah Smith
+///
+/// 	https://technostalgic.tech  
+/// 	twitter @technostalgicGM
+///
+
 /** an object used to deliver assets from the server to the client */
 class ContentPipeline{
 

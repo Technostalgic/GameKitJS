@@ -1,3 +1,10 @@
+///
+/// 	code by Isaiah Smith
+///
+/// 	https://technostalgic.tech  
+/// 	twitter @technostalgicGM
+///
+
 // An object that handles game related logic
 class Game {
 	constructor() {

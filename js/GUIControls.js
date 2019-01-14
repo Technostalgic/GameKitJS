@@ -1,3 +1,10 @@
+///
+///	code by Isaiah Smith
+///		
+///	https://technostalgic.tech  
+///	twitter @technostalgicGM
+///
+
 /** an object that allows interaction between the user and the interface */
 class GUIControl {
 	constructor() {

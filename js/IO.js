@@ -1,3 +1,10 @@
+///
+///	code by Isaiah Smith
+///		
+///	https://technostalgic.tech  
+///	twitter @technostalgicGM
+///
+
 // prompts a download for a text file 'filename' that contains the specified data
 function DownloadData(filename, data = "") {
 	filename += ".zgf2";
