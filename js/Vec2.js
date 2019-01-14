@@ -1,8 +1,8 @@
 ///
-///	code by Isaiah Smith
-///		
-///	https://technostalgic.tech  
-///	twitter @technostalgicGM
+/// 	code by Isaiah Smith
+/// 	
+/// 	https://technostalgic.tech  
+/// 	twitter @technostalgicGM
 ///
 
 /** a data structure that represents a 2 dimensional vector */

@@ -130,6 +130,11 @@ class GUI {
 
 		return null;
 	}
+
+	/** called when a control is pressed */
+	OnControlDown(control){ }
+	OnControlUp(control){ }
+
 	/** @virtual, called when the simulated mouse cursor is moved */
 	OnCursorMove(/**@type {vec2}*/pos) {
 

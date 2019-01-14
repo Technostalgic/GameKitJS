@@ -15,6 +15,9 @@ class InputHandler{
 		this.listeners = null;
 		/**@type {HTMLCanvasElement}*/
 		this.canvasListener = null;
+
+		/**@type {Array}*/
+		this._keysPressed = [];
 	}
 
 	/** generates non-anonymous event listener functions */
@@ -64,9 +67,35 @@ class InputHandler{
 	}
 
 	/** called when a keyboard key is pressed */
-	OnKeyDown(e){ }
+	OnKeyDown(e){ 
+		
+		this._keysPressed[e.keyCode] = true;
+	}
 	/** called when a keyboard key is released */
-	OnKeyUp(e){ }
+	OnKeyUp(e){ 
+		
+		this._keysPressed[e.keyCode] = false;
+	}
+
+	/** @type {Boolean} returns true if the key is being pressed */
+	IsKeyPressed(/**@type {Number}*/ keyCode){
+
+		if(!this._keysPressed[keyCode])
+			return false;
+
+		return _keysPressed[keyCode];
+	}
+	/** @type {Array} returns an array of all the codes of the keys that are currently being pressed*/
+	GetPressedKeys(){
+
+		var r = [];
+		for(let i in this._keysPressed){
+			if(this._keysPressed[i])
+				r.push(Number.parseInt(i));
+		}
+
+		return r;
+	}
 
 	/** called when the mouse is pressed */
 	OnMouseDown(e){
@@ -98,5 +127,19 @@ class InputHandler{
 		mperc = mperc.Scaled(this.parentGame.resolution);
 
 		return mperc;
+	}
+}
+
+/** an object that defines a scheme of controls for the game to react to user input */
+class ControlScheme{
+
+}
+
+class Control{
+	constructor(){
+
+		this.id = 0;
+		this.name = "Control";
+		
 	}
 }
