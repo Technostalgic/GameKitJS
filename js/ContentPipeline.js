@@ -164,6 +164,23 @@ class VanillaContent extends ContentPipeline{
 			let pos = new vec2(x, 0);
 			let size = new vec2(8, 12);
 
+			switch(char){
+				case " ": size.x = 6; break;
+				case "!": size.x = 3; break;
+				case '"': size.x = 5; break;
+				case "%": size.x = 8; break;
+				case "&": size.x = 7; break;
+				case "'": size.x = 3; break;
+				case "(": size.x = 5; break;
+				case ")": size.x = 5; break;
+				case "*": size.x = 5; break;
+				case "+": size.x = 7; break;
+				case ",": size.x = 4; break;
+				case "-": size.x = 7; break;
+				case ".": size.x = 3; break;
+				case "/": size.x = 6; break;
+			}
+
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
 		}
@@ -175,6 +192,25 @@ class VanillaContent extends ContentPipeline{
 
 			let pos = new vec2(x, 12);
 			let size = new vec2(8, 12);
+
+			switch(char){
+				case "0": size.x = 6; break;
+				case "1": size.x = 5; break;
+				case "2": size.x = 6; break;
+				case "3": size.x = 6; break;
+				case "4": size.x = 6; break;
+				case "5": size.x = 6; break;
+				case "6": size.x = 6; break;
+				case "7": size.x = 6; break;
+				case "8": size.x = 6; break;
+				case "9": size.x = 6; break;
+				case ":": size.x = 3; break;
+				case ";": size.x = 4; break;
+				case "<": size.x = 6; break;
+				case "=": size.x = 6; break;
+				case ">": size.x = 6; break;
+				case "?": size.x = 7; break;
+			}
 
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
@@ -188,6 +224,25 @@ class VanillaContent extends ContentPipeline{
 			let pos = new vec2(x, 24);
 			let size = new vec2(8, 12);
 
+			switch(char){
+				case "@": size.x = 7; break;
+				case "A": size.x = 7; break;
+				case "B": size.x = 6; break;
+				case "C": size.x = 6; break;
+				case "D": size.x = 6; break;
+				case "E": size.x = 6; break;
+				case "F": size.x = 6; break;
+				case "G": size.x = 6; break;
+				case "H": size.x = 6; break;
+				case "I": size.x = 6; break;
+				case "J": size.x = 6; break;
+				case "K": size.x = 6; break;
+				case "L": size.x = 6; break;
+				case "M": size.x = 7; break;
+				case "N": size.x = 7; break;
+				case "O": size.x = 7; break;
+			}
+
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
 		}
@@ -199,6 +254,25 @@ class VanillaContent extends ContentPipeline{
 
 			let pos = new vec2(x, 36);
 			let size = new vec2(8, 12);
+
+			switch(char){
+				case "P": size.x = 6; break;
+				case "Q": size.x = 7; break;
+				case "R": size.x = 6; break;
+				case "S": size.x = 6; break;
+				case "T": size.x = 7; break;
+				case "U": size.x = 6; break;
+				case "V": size.x = 7; break;
+				case "W": size.x = 7; break;
+				case "X": size.x = 7; break;
+				case "Y": size.x = 7; break;
+				case "Z": size.x = 6; break;
+				case "[": size.x = 5; break;
+				case "/": size.x = 6; break;
+				case "]": size.x = 5; break;
+				case "^": size.x = 7; break;
+				case "_": size.x = 6; break;
+			}
 
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
@@ -212,17 +286,54 @@ class VanillaContent extends ContentPipeline{
 			let pos = new vec2(x, 48);
 			let size = new vec2(8, 12);
 
+			switch(char){
+				case "`": size.x = 5; break;
+				case "a": size.x = 7; break;
+				case "b": size.x = 6; break;
+				case "c": size.x = 6; break;
+				case "d": size.x = 6; break;
+				case "e": size.x = 6; break;
+				case "f": size.x = 5; break;
+				case "g": size.x = 6; break;
+				case "h": size.x = 6; break;
+				case "i": size.x = 3; break;
+				case "j": size.x = 4; break;
+				case "k": size.x = 6; break;
+				case "l": size.x = 3; break;
+				case "m": size.x = 7; break;
+				case "n": size.x = 6; break;
+				case "o": size.x = 6; break;
+			}
+
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
 		}
 
 		chars = "pqrstuvwxyz{|}~";
-		for(let i = 0; i < 16; i++){
+		for(let i = 0; i < 15; i++){
 			let x = i * 8;
 			let char = chars.charAt(i);
 
 			let pos = new vec2(x, 60);
 			let size = new vec2(8, 12);
+
+			switch(char){
+				case "p": size.x = 6; break;
+				case "q": size.x = 7; break;
+				case "r": size.x = 6; break;
+				case "s": size.x = 6; break;
+				case "t": size.x = 6; break;
+				case "u": size.x = 6; break;
+				case "v": size.x = 7; break;
+				case "w": size.x = 7; break;
+				case "x": size.x = 7; break;
+				case "y": size.x = 7; break;
+				case "z": size.x = 6; break;
+				case "{": size.x = 5; break;
+				case "|": size.x = 3; break;
+				case "}": size.x = 5; break;
+				case "~": size.x = 7; break;
+			}
 
 			let sprite = new rect(pos, size);
 			font.MapCharacter(char, sprite);
