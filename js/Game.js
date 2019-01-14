@@ -152,16 +152,10 @@ class Game {
 	/** paints the renderTarget to the specified canvas */
 	RenderToCanvas(/**@type {HTMLCanvasElement}*/canvas, /**@type {CanvasRenderingContext2D}*/ context) {
 
-		this.ClearCanvas();
+		this.ClearCanvas(new Color(208, 208, 208));
 
 		if (this.currentGUI)
 			this.currentGUI.Draw();
-
-		// TODO: Fix SpriteFont.GenerateTextImage!!
-		//RenderHelper.drawImage(this.content.defaultFont.GenerateTextImage("blah"), 0, 0)
-		//RenderHelper.DrawSprite(this.renderContext, this.content.defaultFont.spriteSheet, 
-		//	new rect(new vec2(), new vec2(8, 12)), 
-		//	new rect(new vec2(8, 0), new vec2(8, 12)));
 
 		context.drawImage(this.renderTarget, this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height);
 	}
