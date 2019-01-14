@@ -55,7 +55,7 @@ class Game {
 	/** @type {Game} */
 	static set instance(value){
 
-		if(!!Game.instance)
+		if(!!Game._instance)
 			console.log("Game object singleton pattern violated, only one game instance should exist at any time. " +
 			"Unexpected problems may occur.");
 		else
