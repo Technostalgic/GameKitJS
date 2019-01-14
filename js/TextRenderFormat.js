@@ -3,43 +3,27 @@ class TextRenderFormat{
 	constructor(){
 
 		/**@type {String}*/
-		this.font = "Munro";
-		/**@type {String}*/
-		this.style = "None";
+		this.font = "Default";
 		/**@type {Number}*/
-		this.size = 10;
+		this.size = 1;
+		/**@type {Number} */
+		this.spacing = -1;
 		/**@type {enum(HorizontalTextAlignment)}*/
 		this.hAlign = HorizontalTextAlignment.Center;
 		/**@type {enum(VerticalTextAlignment)}*/
 		this.vAlign = VerticalTextAlignment.Center;
 		/**@type {Color}*/
 		this.fillColor = new Color();
-		/**@type {Color}*/
-		this.outlineColor = new Color();
 		/**@type {Number}*/
 		this.outlineWidth = 1;
 		/**@type {Boolean}*/
-		this.fill = true;
-		/**@type {Boolean}*/
 		this.outline = false;
+		/**@type {Boolean} */
+		this.smoothing = false;
 	}
 
 	static get default(){
 		return new TextRenderFormat();
-	}
-
-	/** applies the render format styling information to the specified context */
-	SetToContext(/**@type {CanvasRenderingContext2D}*/ctx){
-
-		ctx.font = this.size.toString() + "px " + this.font;
-		ctx.textAlign = HorizontalTextAlignmentToString(this.hAlign);
-
-		if(this.fill)
-			ctx.fillStyle = this.fillColor.ToRGBA();
-		if(this.outline){
-			ctx.strokeStyle = this.outlineColor.ToRGBA();
-			ctx.lineWidth = this.outlineWidth;
-		}
 	}
 }
 

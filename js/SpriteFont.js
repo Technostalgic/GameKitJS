@@ -60,26 +60,27 @@ class SpriteFont {
 
 		// create the canvas object that will contain the text image
 		var tcanvas = document.createElement("canvas");
-		tcanvas.width = str.length * this.maxSpriteWidth;
-		tcanvas.height = this.maxSpriteHeight;
+		tcanvas.width = str.length * this.maxSpriteWidth * format.size + (str.length - 1 * format.spacing * format.size);
+		tcanvas.height = this.maxSpriteHeight * format.size;
 		var ctx = tcanvas.getContext("2d");
 		
 		ctx.fillStyle = "#000";
 		ctx.fillRect(0, 0, 100, 100);
-
+		
 		// determine the width of the canvas and set it before anything is rendered onto the canvas
 		var cwidth = 0;
 		for(let i = 0; i < str.length; i++)
-			cwidth += this.spriteTable[str.charCodeAt(i)].width;
-		tcanvas.width = cwidth;
+			cwidth += this.spriteTable[str.charCodeAt(i)].width * format.size + format.spacing * format.size;
+		tcanvas.width = cwidth - format.spacing;
+		ctx.imageSmoothingEnabled = format.smoothing;
 		
 		// render each character in the string onto the canvas
 		cwidth = 0;
 		for(let i = 0; i < str.length; i++){
 			let sprite = this.spriteTable[str.charCodeAt(i)];
-			let target = new rect(new vec2(cwidth, 0), sprite.size.clone)
+			let target = new rect(new vec2(cwidth, 0), sprite.size.Scaled(format.size))
 			RenderHelper.DrawSprite(ctx, this.spriteSheet, target, sprite);
-			cwidth += sprite.width;
+			cwidth += sprite.width * format.size + format.spacing * format.size;
 		}
 		
 		return tcanvas;

@@ -43,9 +43,12 @@ class GUIControl {
 		return this;
 	}
 	/**@type {GUIControl} sets the center of the bounds and then returns the cotnrol*/
-	AtPosition(/**@type {vec2}*/pos){
+	AtPosition(/**@type {vec2}*/pos, /**@type {Boolean}*/roundPos = false){
 		
 		this.bounds.center = pos;
+		if(roundPos)
+			this.bounds.position = this.bounds.position.rounded;
+		
 		return this;
 	}
 }
@@ -93,11 +96,12 @@ class GUIControl_Button extends GUIControl{
 		var r = new GUIControl_Button();
 		r.label = label;
 		r.textFormat = textFormat;
-		
+
 		r.GenerateLabelTexture(Game.instance.content.defaultFont, textFormat);
 		
 		var bounds = new rect(new vec2(), new vec2(r.labelTexture.width, r.labelTexture.height));
 		bounds.AddPadding(10);
+		bounds.size = bounds.size.rounded;
 		r.bounds = bounds;
 
 		return r;
