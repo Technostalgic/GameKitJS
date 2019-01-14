@@ -123,14 +123,14 @@ class GUI {
 
 		return null;
 	}
-	/** virtual, called when the simulated mouse cursor is moved */
+	/** @virtual, called when the simulated mouse cursor is moved */
 	OnCursorMove(/**@type {vec2}*/pos) {
 
 		var control = this.GetSelectableControlAt(pos);
 		if (!!control)
 			this.focusControl = control;
 	}
-	/** virtual, called when the simulated cursor is pressed */
+	/** @virtual, called when the simulated cursor is pressed */
 	OnCursorDown(/**@type {vec2}*/pos) {
 
 		var control = this.GetSelectableControlAt(pos);
@@ -153,7 +153,7 @@ class GUI {
 			this.generateBackground();
 	}
 
-	/** virtual, called once every game step */
+	/** @virtual, called once every game step */
 	Update(/**@type {Number}*/dt) {
 		if (!this.initialized)
 			this.Initialize();
@@ -161,7 +161,7 @@ class GUI {
 		this._elapsedTime += dt;
 	}
 
-	/** virtual, used to render the GUI */
+	/** @virtual, used to render the GUI */
 	Draw() {
 
 		this.parentGame.renderContext.drawImage(this._background, 0, 0);
@@ -183,6 +183,11 @@ class GUI_SplashScreen extends GUI {
 		this._bgContext.fillRect(0, 0, this._background.width, this._background.height);
 
 		RenderHelper.DrawImage(this._bgContext, this.parentGame.content.graphics.menus_splashscreen, this.parentGame.resolution.Scaled(0.5));
+	}
+
+	OnCursorDown(){
+
+		this.parentGame.SetCurrentGUI(GUI_Menu.Menu_MainMenu);
 	}
 
 	Update(dt) {
