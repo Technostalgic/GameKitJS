@@ -132,14 +132,58 @@ class InputHandler{
 
 /** an object that defines a scheme of controls for the game to react to user input */
 class ControlScheme{
-
+	constructor(){
+		this.controls = [];
+	}
 }
 
+/** an object that links a user input to an action to be performed by the game */
 class Control{
 	constructor(){
 
 		this.id = 0;
 		this.name = "Control";
+		this.action = null;
+	}
+}
+
+/** an enumerator for the types of input that a control can accept */
+var ControlType = {
+	keyboard: 0,
+	mouse: 1,
+	controller: 2
+}
+
+/** an extended enumeration class for enumerating what controls the user is trying to trigger */
+class ControlAction{
+	
+	static get _nextActionNumber(){
 		
+		if(!ControlAction._nextNum)
+		ControlAction._nextNum = 0;
+		else
+		ControlAction._nextNum += 1;
+		
+		return ControlAction._nextNum;
+	}
+
+	/**@type {Array} a list of all the actions that the ControlAction object holds*/
+	static get allActions(){
+
+		if(!ControlAction._actions)
+			ControlAction._actions = [];
+
+		return ControlAction._actions;
+	}
+	
+	/** adds a control action to the @see ControlAction enumerator that can be tested for on control input events */
+	static AddControlAction(/**@type {String}*/controlName){
+
+		var num = ControlAction._nextActionNumber;
+		ControlAction[controlName] = num;
+		ControlAction.allActions.push({
+			name: controlName,
+			actionNumber: num
+		});
 	}
 }
