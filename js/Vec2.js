@@ -84,13 +84,13 @@ class rect {
 	}
 
 	/**@type {rect} creates a rect from an array created by 'toJSONArray()' */
-	fromJSONArray(/**@type {Arryay}*/data){
+	static FromJSONArray(/**@type {Arryay}*/data){
 
 		return new rect(new vec2(data[0], data[1]), new vec2(data[2], data[3]));
 	}
 
 	/**@type {Array} creates a parseable JSON array to be stored in a file*/
-	toJSONArray(){
+	ToJSONArray(){
 		return [
 			this.left,
 			this.top,
