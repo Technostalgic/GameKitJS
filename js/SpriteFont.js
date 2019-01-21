@@ -10,6 +10,8 @@ class SpriteFont {
 	/** initialize a new instance of a SpriteFont object */
 	constructor() {
 
+		this.fontName = "default";
+
 		/** @type {Image} */
 		this._spriteSheet = null;
 
@@ -67,18 +69,25 @@ class SpriteFont {
 	/** loads data from a JSON object and replaces all this spriteFont's data */
 	LoadJSONData(data){
 
+		this.fontName = data.fontName;
+
 		// if the spritesheet graphic was already loaded by the content pipeline, use the graphic
 		var spritesheet = null;
 		if(!!Game.instance){
 
-			var pgfx = Object.assign(Game.instance.content.graphics, Game.instance.content.unfinishedAssets)
+			var pgfx = Object.assign({}, Game.instance.content.graphics, Game.instance.content.unfinishedAssets)
 			for(let gk in pgfx){
 
 				let graphic = pgfx[gk];
-				var gsrc = graphic.src || graphic.content.src;
+				var iscontent = true;
+				var gsrc = graphic.content.src;
+				if(!!graphic.src){
+					gsrc = graphic.src
+					iscontent = false;
+				}
 
 				if(!!gsrc && graphic.content.src.indexOf(data.spriteSheet.substr(1)) >= 0){
-					spritesheet = graphic;
+					spritesheet = iscontent ? graphic.content : graphic;
 					break;
 				}
 			}
@@ -105,8 +114,7 @@ class SpriteFont {
 	/** loads a spritesheet texture into the spritefont */
 	LoadSpriteSheet(/**@type {string}*/ path, onFinishDelegate = null) {
 
-		this._spriteSheet = new Image();
-		this._spriteSheet.src = path;
+		this._spriteSheet = Game.instance.content.LoadAsset("font_" + this.fontName, path, AssetType.Image);
 
 		var ths = this;
 		var onload = function(){
@@ -118,7 +126,7 @@ class SpriteFont {
 			ths.LoadStatusCheck();
 		};
 
-		this._spriteSheet.onload = onload;
+		this._spriteSheet.addEventListener("load", onload);
 	}
 
 	LoadStatusCheck(){

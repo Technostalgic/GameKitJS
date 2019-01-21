@@ -1,4 +1,5 @@
 {
+	"fontName" : "DefaultFont",
 	"spriteSheet":"./gameContent/fonts/defaultSpriteFont.png",
 	"maxSpriteWidth":8,
 	"maxSpriteHeight":12,

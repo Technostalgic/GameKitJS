@@ -96,9 +96,11 @@ class ContentPipeline{
 		if(assetType != AssetType.Font){
 
 			// set the onfinishloading delegate and start loading the asset
-			content.onload = this.getOnAssetDoneLoadingDelegate(asset, asset.type);
+			content.addEventListener("load", this.getOnAssetDoneLoadingDelegate(asset, asset.type));
 			content.src = sourcePath;
 		}
+
+		return content;
 	}
 	/** virtual, starts loading all the content associated with this content pipeline */
 	LoadContent(){ }
