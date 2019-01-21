@@ -32,6 +32,51 @@ class SpriteFont {
 		return r;
 	}
 
+	/** @type {SpriteFont} parses a JSON spritefont configuration into a spritefont object and returns the spritefont*/
+	fromJSONObject(data){
+		var r = new SpriteFont();
+
+		// if the spritesheet graphic was already loaded by the content pipeline, use the graphic
+		var spritesheet = null;
+		for(let graphic of Game.instance.content){
+
+			if(graphic.src == data.spriteSheet){
+				spritesheet = data.spriteSheet;
+				break;
+			}
+		}
+		r._spriteSheet = spritesheet;
+
+		r.maxSpriteWidth = data.maxSpriteWidth;
+		r.maxSpriteHeight = data.maxSpriteHeight;
+
+		for(let char in data.characters){
+			let chc = char.charCodeAt(0);
+
+			r.spriteTable[chc] = rect.fromJSONArray(data.characters[char]);
+		}
+
+		return r;
+	}
+
+	/** @type {Object} converts the spriteFont to a loadable JSON object */
+	toJSONObject(){
+		var r = {};
+
+		r.spriteSheet = this._spriteSheet.src;
+		r.maxSpriteWidth = this.maxSpriteWidth;
+		r.maxSpriteHeight = this.maxSpriteHeight;
+
+		r.characters = {};
+		for(let chc in this.spriteTable){
+			
+			let chr = String.fromCharCode(chc);
+			r.characters[chr] = this.spriteTable[chc].toJSONArray();
+		}
+
+		return r;
+	}
+
 	/** loads a spritesheet texture into the spritefont */
 	loadSpriteSheet(/**@type {string}*/ path, onFinishDelegate = null) {
 

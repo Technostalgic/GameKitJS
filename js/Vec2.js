@@ -78,6 +78,27 @@ class rect {
 		this.size = size;
 	}
 
+	/**@type {rect}*/
+	static FromSides(left, right, top, bottom) {
+		return new rect(new vec2(left, top), new vec2(right - left, bottom - top));
+	}
+
+	/**@type {rect} creates a rect from an array created by 'toJSONArray()' */
+	fromJSONArray(/**@type {Arryay}*/data){
+
+		return new rect(new vec2(data[0], data[1]), new vec2(data[2], data[3]));
+	}
+
+	/**@type {Array} creates a parseable JSON array to be stored in a file*/
+	toJSONArray(){
+		return [
+			this.left,
+			this.top,
+			this.width,
+			this.height
+		];
+	}
+
 	/**@type {Number}*/
 	get left() {
 		return this.position.x;
@@ -211,10 +232,6 @@ class rect {
 		ctx.stroke();
 	}
 
-	/**@type {rect}*/
-	static FromSides(left, right, top, bottom) {
-		return new rect(new vec2(left, top), new vec2(right - left, bottom - top));
-	}
 }
 
 /** a data structure used to represent a visual color */
