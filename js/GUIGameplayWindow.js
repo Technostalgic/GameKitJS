@@ -15,5 +15,12 @@ class GUI_GameplayWindow extends GUI {
 
 	Update(/**@type {Number}*/dt){
 		super.Update(dt);
+
+		Game.gameState.Simulate(dt);
+	}
+
+	Draw(){
+		
+		super.Draw();
 	}
 }

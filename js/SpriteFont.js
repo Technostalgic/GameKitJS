@@ -75,7 +75,7 @@ class SpriteFont {
 		var spritesheet = null;
 		if(!!Game.instance){
 
-			var pgfx = Object.assign({}, Game.instance.content.graphics, Game.instance.content.unfinishedAssets)
+			var pgfx = Object.assign({}, Game.content.graphics, Game.content.unfinishedAssets)
 			for(let gk in pgfx){
 
 				let graphic = pgfx[gk];
@@ -114,7 +114,7 @@ class SpriteFont {
 	/** loads a spritesheet texture into the spritefont */
 	LoadSpriteSheet(/**@type {string}*/ path, onFinishDelegate = null) {
 
-		this._spriteSheet = Game.instance.content.LoadAsset("font_" + this.fontName, path, AssetType.Image);
+		this._spriteSheet = Game.content.LoadAsset("font_" + this.fontName, path, AssetType.Image);
 
 		var ths = this;
 		var onload = function(){

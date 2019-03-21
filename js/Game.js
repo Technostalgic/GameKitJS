@@ -21,8 +21,10 @@ class Game {
 		this.renderContext = this.renderTarget.getContext("2d");
 		this.renderContext.imageSmoothingEnabled = false;
 
-		/**@type {ContentPipeline}*/
-		this.content = null;
+		/** @private @type {ContentPipeline} */
+		this._content = null;
+		/** @private @type {GameState} */
+		this._gameState = null;
 
 		// the webpage canvas to render the game to
 		/** @type {HTMLCanvasElement} */
@@ -71,6 +73,17 @@ class Game {
 		Game._instance = value;
 	}
 
+	/** @type {ContentPipeline} */
+	static get content(){
+
+		return this.instance._content;
+	}
+	/** @type {GameState} */
+	static get gameState(){
+		
+		return this.instance._gameStatel
+	}
+
 	/** sets the current GUI of the game */
 	SetCurrentGUI(/**@type {GUI}*/gui) {
 
@@ -97,7 +110,7 @@ class Game {
 	}
 	/** sets the game's content pipeline that content can be loaded from */
 	SetContentPipeline(content){
-		this.content = content;
+		this._content = content;
 	}
 
 	/** starts running the game */
