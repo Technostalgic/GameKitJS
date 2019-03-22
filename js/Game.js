@@ -81,7 +81,16 @@ class Game {
 	/** @type {GameState} */
 	static get gameState(){
 		
-		return this.instance._gameStatel
+		return this.instance._gameState;
+	}
+
+	/**@type {ContentPipeline} */
+	get content(){
+		return this._content;
+	}
+	/**@type {GameState}*/
+	get gameState(){
+		return this._gameState;
 	}
 
 	/** sets the current GUI of the game */
