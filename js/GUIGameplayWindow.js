@@ -9,8 +9,7 @@ class GUI_GameplayWindow extends GUI {
 	constructor(){
 		super();
 
-		/**@type {GUI}*/
-		this.HUD = null;
+		
 	}
 
 	Update(/**@type {Number}*/dt){

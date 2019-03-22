@@ -74,4 +74,46 @@ class GameState{
 			ob.Render();
 		}
 	}
+
+	/** @type {Object} */
+	GetSaveState(){
+		var r = {};
+
+		r.fixedDeltaTime = this.fixedDeltaTime;
+		r.timeScale = this.timeScale;
+		r._currentGameTime = this._currentGameTime;
+		r._currentFixedUpdateTime = this._currentFixedUpdateTime;
+
+		var serializedGameObjects = [];
+		for(var obj of this._gameObjects){
+
+			serializedGameObjects.push(GameObjectSaveData.FromGameObject(obj));
+		}
+
+		r.savedObjects = serializedGameObjects;
+
+		return r;
+	}
+
+	/** @type {GameState} loads a gamestate from serialized data */
+	static LoadSaveState(/**@type {Object}*/data){
+		var r = new GameState();
+
+		for(var i in data){
+
+			if(i == "savedObjects"){
+
+				var deserializedObjects = [];
+				for(var sObj of data[i]){
+
+					var dsObj = GameObject.LoadFromSaveData(sObj);
+					deserializedObjects.push(dsObj);
+				}
+				r[i] = deserializedObjects;
+				continue;
+			}
+
+			r[i] = data[i];
+		}
+	}
 }

@@ -7,6 +7,7 @@
 
 // An object that handles game related logic
 class Game {
+	
 	constructor() {
 
 		// the target resolution of the application

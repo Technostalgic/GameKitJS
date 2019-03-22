@@ -23,8 +23,8 @@ class GameObject{
 	/** @protected @virtual Called when the object is to be rendered to the screen */
 	Render(){}
 
-	/** @virtual @type {Object} returns an object ready for JSON serialization, or null if object is not to be saved*/
-	GetSaveData(){
+	/** @protected @virtual @type {Object} returns an object ready for JSON serialization, or null if object is not to be saved*/
+	getInternalSaveData(){
 
 		var r = {};
 		
@@ -34,6 +34,12 @@ class GameObject{
 		}
 
 		return r;
+	}
+
+	/** @type {GameObjectSaveData} returns a serializable data format for this object with type preservation*/
+	GetSaveData(){
+
+		return GameObjectSaveData.FromGameObject(this);
 	}
 
 	/** @protected @virtual loads save data into self (preferrably from a parsed JSON object) */
@@ -67,7 +73,7 @@ class GameObjectSaveData{
 		this.ObjectData = null;
 	}
 
-	/** generates a data object from the specified GameObject */
+	/** @type {GameObjectSaveData} generates a data object from the specified GameObject */
 	static FromGameObject(/**@type {GameObject}*/ obj){
 
 		var r = new GameObjectSaveData();
@@ -79,5 +85,11 @@ class GameObjectSaveData{
 			return null;
 
 		return r;
+	}
+
+	/** @type {GameObject} returns a game object initialized from this save data */
+	LoadObject(){
+
+		return GameObject.LoadFromSaveData(this);
 	}
 }
