@@ -50,7 +50,7 @@ class Game {
 		this._lastStep = 0;
 
 		// set the singleton instance
-		Game.instance = this;
+		this.setSingletonInstance();
 	}
 
 	/** @static @property @type {Game} the singleton instance */
@@ -137,6 +137,24 @@ class Game {
 
 		this.inputHandler.DetachEvents(this.canvasTarget);
 		this._isRunning = false;
+	}
+
+	/** sets the global Game singleton to this */
+	setSingletonInstance(/**@type {Boolean}*/override = false){
+
+		if(!!Game.instance){
+
+			Console.log("Global Game singleton instance already declared");
+			if(override){
+
+				Console.log("... singleton instance overriden");	
+				Game.instance = this;
+			}
+		}
+		else{
+
+			Game.instance = this;
+		}
 	}
 
 	/** @private handles a full game cycle and sets up another to be called */
