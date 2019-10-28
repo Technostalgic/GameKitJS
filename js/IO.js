@@ -5,9 +5,12 @@
 ///	twitter @technostalgicGM
 ///
 
-// prompts a download for a text file 'filename' that contains the specified data
+/**
+ * prompts a download for a text file 'filename' that contains the specified data
+ * @param {string} filename - the name of the file that will be downloaded 
+ * @param {*} data - the data that is contained in the file
+ */
 function DownloadData(filename, data = "") {
-	filename += ".zgf2";
 
 	var blob = new Blob([data], { type: 'text/csv' });
 	if (window.navigator.msSaveOrOpenBlob) {
@@ -25,12 +28,15 @@ function DownloadData(filename, data = "") {
 	}
 }
 
-// opens a file dialogue to locate saved data files, note: must be called from a user triggered event (ie "click")
-function LoadDataFile() {
+/**
+ * opens a file dialogue to locate saved data files, note: must be called from a user triggered event (ie "click")
+ * @param {string} accept - the file type that is accepted by the loader 
+ */
+function LoadDataFile(accept = null) {
 
 	var elem = document.createElement("input");
 	elem.type = "file";
-	elem.accept = ".zgf2";
+	elem.accept = accept;
 	elem.click();
 
 	elem.addEventListener("change", function () {
@@ -39,10 +45,4 @@ function LoadDataFile() {
 		reader.onload = function () { LoadSaveData(reader.result); };
 		reader.readAsText(elem.files[0]);
 	});
-}
-
-// sets the current gamestate to the specified save data
-function LoadSaveData(data) {
-
-	console.log(data);
 }
