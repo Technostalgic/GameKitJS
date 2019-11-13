@@ -94,6 +94,10 @@ class Game {
 		return this._gameState;
 	}
 
+	/** sets the current gamestate to the specified gamestate */
+	SetGameState( /**@type {Gamestate} */state ){
+		this._gameState = state;
+	}
 	/** sets the current GUI of the game */
 	SetCurrentGUI(/**@type {GUI}*/gui) {
 

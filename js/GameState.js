@@ -51,7 +51,7 @@ class GameState{
 	/** @protected @virtual updates each logic step */
 	Update(dt) {
 		
-		for(var ob of _gameObjects){
+		for(var ob of this._gameObjects){
 
 			ob.Update(dt);
 		}
@@ -60,7 +60,7 @@ class GameState{
 	/** @protected @virtual FixedUpdate only updates once every this.fixedDeltaTime */
 	FixedUpdate(fdt){ 
 
-		for(var ob of _gameObjects){
+		for(var ob of this._gameObjects){
 
 			ob.FixedUpdate(fdt);
 		}
@@ -69,8 +69,7 @@ class GameState{
 	/** @protected @virtual called inside of GUI.Draw() */
 	Render(){ 
 
-		for(var ob of _gameObjects){
-
+		for(var ob of this._gameObjects){
 			ob.Render();
 		}
 	}

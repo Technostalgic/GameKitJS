@@ -8,8 +8,6 @@
 class GUI_GameplayWindow extends GUI {
 	constructor(){
 		super();
-
-		
 	}
 
 	Update(/**@type {Number}*/dt){
@@ -20,6 +18,6 @@ class GUI_GameplayWindow extends GUI {
 
 	Draw(){
 		
-		super.Draw();
+		Game.gameState.Render();
 	}
 }
