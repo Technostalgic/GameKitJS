@@ -22,7 +22,7 @@ class GUI_GameplayWindow extends GUI {
 
 	Draw(){
 		
-		Game.instance.renderContext.drawImage(this.mainCamera.renderTarget, 0, 0, Game.instance.renderTarget.width, Game.instance.renderTarget.height);
 		Game.gameState.Render();
+		Game.instance.renderContext.drawImage(this.mainCamera.renderTarget, 0, 0, Game.instance.renderTarget.width, Game.instance.renderTarget.height);
 	}
 }

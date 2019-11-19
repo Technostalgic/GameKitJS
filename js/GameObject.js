@@ -11,7 +11,6 @@ class GameObject{
 	constructor(){
 		
 		this.title = "GameObject";
-
 	}
 
 	/** @protected @virtual Updates every Game.Step() */
@@ -20,8 +19,9 @@ class GameObject{
 	/** @protected @virtual Called on GameState.FixedStep() */
 	FixedUpdate(fdt){}
 	
-	/** @protected @virtual Called when the object is to be rendered to the screen */
-	Render(){}
+	/** @param {Camera} camera the camera to render the game object to 
+	 * @protected @virtual Called when the object is to be rendered to the screen */
+	Render(camera){}
 
 	/** @protected @virtual @type {Object} returns an object ready for JSON serialization, or null if object is not to be saved*/
 	getInternalSaveData(){

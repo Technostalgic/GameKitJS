@@ -66,8 +66,9 @@ class GameState{
 		}
 	}
 
-	/** @protected @virtual called inside of GUI.Draw() */
-	Render(){ 
+	/** @param {Camera} camera the camera to render the game objects to
+	 * @protected @virtual called inside of GUI.Draw() */
+	Render(camera){ 
 
 		for(var ob of this._gameObjects){
 			ob.Render();
