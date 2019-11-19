@@ -281,7 +281,7 @@ class GUI_Menu extends GUI {
 
 		startButton.action = function(){
 			Game.instance.SetGameState(new GameState());
-			Game.instance.SetCurrentGUI(new GUI_GameplayWindow());
+			Game.instance.SetCurrentGUI(new GUI_GameplayWindow(new vec2(100, 100)));
 		};
 
 		r.AddControl(startButton);

@@ -6,8 +6,12 @@
 ///
 
 class GUI_GameplayWindow extends GUI {
-	constructor(){
+
+	/**@param {vec2} resolution the resolution that the main camera will render at */
+	constructor(resolution){
 		super();
+
+		this.mainCamera = new Camera(resolution);
 	}
 
 	Update(/**@type {Number}*/dt){
@@ -18,6 +22,7 @@ class GUI_GameplayWindow extends GUI {
 
 	Draw(){
 		
+		Game.instance.renderContext.drawImage(this.mainCamera.renderTarget, 0, 0, Game.instance.renderTarget.width, Game.instance.renderTarget.height);
 		Game.gameState.Render();
 	}
 }
